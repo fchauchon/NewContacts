@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './home/home.component';
+import { ContactComponent } from './home/contact.component';
 import { AboutComponent } from './about/about.component';
 import { FormComponent } from './form/form.component';
 
@@ -15,7 +15,7 @@ import { FormComponent } from './form/form.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent,
+    ContactComponent,
     AboutComponent,
     FormComponent
   ],
