@@ -1,0 +1,30 @@
+<div class="min">
+    <form [formGroup]="customerForm" (ngSubmit)="submitForm()">
+        Etat du formulaire:{{ customerForm.status }}<br/>
+        Id: <input type="number" formControlName="id" /><br/>
+        <div *ngIf="customerForm.get('id').errors?.required">
+            L'id est obligatoire
+        </div>
+        FirstName: <input formControlName="firstName" /><br/>
+        <div *ngIf="customerForm.get('firstName').errors?.required">
+            Le nom est obligatoire
+        </div>
+        <div *ngIf="customerForm.get('firstName').errors?.minlength">
+            Le nom doit avoir 8 caractères !!!!!!!!!
+        </div>
+        LastName: <input formControlName="lastName" /><br/>
+        <div *ngIf="customerForm.get('lastName').errors?.required">
+            Le prénom est obligatoire
+        </div>
+        Email: <input type="email" formControlName="email" /><br/>
+        <div *ngIf="customerForm.get('email').errors?.required">
+            Le mail est obligatoire
+        </div>
+        <div *ngIf="customerForm.get('email').dirty && customerForm.get('email').errors?.email">
+            Le mail est incorrect
+        </div>
+        
+        <br/>
+        <button [disabled]="!customerForm.valid">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+<ul>
+    <ng-container *ngIf="items.length > 0">
+        <div *ngFor="let item of items">
+            <app-contact (deleteRequest)="myDelete($event)" [person]="item"></app-contact>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="items.length <= 0">
+        Pas d'élément !!!
+    </ng-container>
+</ul>
+<div style="background-color: white;">
+    <app-form-page (addRequest)="myAdd($event)"></app-form-page>
+</div>

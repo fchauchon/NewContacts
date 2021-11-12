@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContactComponent } from './contact/contact.component';
-import { AboutComponent } from './about/about.component';
-import { FormComponent } from './form/form.component';
+import { ContactPageComponent } from './contact-page/contact.page.component';
+import { AboutPageComponent } from './about/about.page.component';
+import { FormPageComponent } from './form/form.page.component';
+import { TwoWaysComponent } from './two-ways/two-ways.component';
 
 const routes: Routes = [
-    { path: '', component: ContactComponent },
-    { path: 'form', component: FormComponent },
-    { path: 'about', component: AboutComponent }
+    { path: '', component: ContactPageComponent },
+    { path: 'twoWays', component: TwoWaysComponent },
+    { path: 'about', component: AboutPageComponent }
 ];
 
 @NgModule({
