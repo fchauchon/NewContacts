@@ -13,10 +13,9 @@ export class ContactComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void { }
 
-    delete() {
+    delete(): void {
 
         this.deleteRequest.emit(this.person.id);
     }

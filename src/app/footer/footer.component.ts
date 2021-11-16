@@ -8,12 +8,12 @@ import { Component, OnInit, VERSION } from '@angular/core';
 export class FooterComponent implements OnInit {
 
     version: string;
-  constructor() {
 
-    this.version = VERSION.full;
-  }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+
+        this.version = VERSION.full;
+    }
 
 }

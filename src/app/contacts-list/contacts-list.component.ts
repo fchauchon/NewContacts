@@ -15,20 +15,20 @@ export class ContactsListComponent implements OnInit {
     ngOnInit(): void {
 
         this.items.push(new Person(0, "Macron", "Emmanuel", "emacron@gmail.com"));
-        this.items.push(new Person(1, "Chirac", "Jacky", ""));
-        this.items.push(new Person(2, "Holande", "Francois", ""));
+        this.items.push(new Person(1, "Chirac", "Jacques", ""));
+        this.items.push(new Person(2, "Hollande", "Francois", ""));
         this.items.push(new Person(3, "Trump", "Donald", ""));
         this.items.push(new Person(4, "Merkel", "Angela", ""));
     }
 
-    myDelete(data: any) {
+    myDelete(id: number): void {
 
-        const index = this.items.findIndex( (element) => element.id === data);
+        const index = this.items.findIndex( (element) => element.id === id);
         this.items.splice(index, 1);
     }
 
-    myAdd(data: Person) {
+    myAdd(person: Person): void {
 
-        this.items.push(data);
+        this.items.push(person);
     }
 }

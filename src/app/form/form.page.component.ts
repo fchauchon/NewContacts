@@ -16,6 +16,7 @@ export class FormPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
         this.customerForm = new FormGroup({
             id: new FormControl('', [Validators.required, Validators.pattern(/^(0|[1-9]\d*)?$/)]),
             firstName: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -24,7 +25,7 @@ export class FormPageComponent implements OnInit {
         });
     }
 
-    submitForm() {
+    submitForm(): void {
 
         const person = new Person(
             this.customerForm.get('id').value,
@@ -33,7 +34,6 @@ export class FormPageComponent implements OnInit {
             this.customerForm.get('email').value
         );
         this.addRequest.emit(person);
-        
     }
 
 }

@@ -1,6 +1,6 @@
 <div class="min">
     <form [formGroup]="customerForm" (ngSubmit)="submitForm()">
-        Etat du formulaire:{{ customerForm.status }}<br/>
+        Etat du formulaire: {{ customerForm.status }}<br/>
         Id: <input formControlName="id" /><br/>
         <div *ngIf="customerForm.get('id').errors?.required">
             L'id est obligatoire

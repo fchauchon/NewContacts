@@ -1,1 +1,4 @@
-<li>{{ person.id }}-{{ person.firstName | uppercase }}</li><button (click)="delete()">Del</button>
+<li>
+    {{ person.id }} - {{ person.firstName | uppercase }} {{ person.lastName }}
+    <button (click)="delete()">Supprimer</button>
+</li>
