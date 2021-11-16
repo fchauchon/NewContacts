@@ -8,17 +8,18 @@ import { Person } from '../classes/person';
 })
 export class ContactsListComponent implements OnInit {
 
-    items = new Array<Person>();
+    items!: Array<Person>;
 
     constructor() { }
 
     ngOnInit(): void {
 
+        this.items = new Array<Person>();
         this.items.push(new Person(0, "Macron", "Emmanuel", "emacron@gmail.com"));
-        this.items.push(new Person(1, "Chirac", "Jacques", ""));
-        this.items.push(new Person(2, "Hollande", "Francois", ""));
-        this.items.push(new Person(3, "Trump", "Donald", ""));
-        this.items.push(new Person(4, "Merkel", "Angela", ""));
+        this.items.push(new Person(1, "Chirac", "Jacques", "jacky@paradis.et"));
+        this.items.push(new Person(2, "Hollande", "François", "fhollande@ps.fr"));
+        this.items.push(new Person(3, "Trump", "Donald", "fake@president.com"));
+        this.items.push(new Person(4, "Merkel", "Angela", "amerkel@cdu.de"));
     }
 
     myDelete(id: number): void {
