@@ -10,7 +10,6 @@ import { Person } from '../classes/person';
 export class DataService {
 
     constructor(private http: HttpClient) {
-
     }
 
     getContacts(): Observable<Array<Person>> {
@@ -27,4 +26,10 @@ export class DataService {
 
         this.http.delete('http://localhost:3000/actors/' + id).subscribe();
     }
+
+    getToken(): string {
+
+        return "0123456789";
+    }
+
 }
