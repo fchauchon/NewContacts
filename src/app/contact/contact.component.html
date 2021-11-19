@@ -1,4 +1,5 @@
 <li>
     {{ person.id }} - {{ person.firstName | uppercase }} {{ person.lastName }}
     <button (click)="delete()">Supprimer</button>
+    <ng-content></ng-content>
 </li>

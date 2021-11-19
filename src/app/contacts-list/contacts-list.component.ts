@@ -1,35 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Person } from '../classes/person';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-contacts-list',
   templateUrl: './contacts-list.component.html',
   styleUrls: ['./contacts-list.component.css']
 })
-export class ContactsListComponent implements OnInit {
+export class ContactsListComponent implements OnInit, OnChanges, OnDestroy {
 
-    items!: Array<Person>;
+    persons!: Array<Person>;
+    subscription: Subscription;
 
-    constructor() { }
+    constructor(private dataService: DataService) {
+
+    }
 
     ngOnInit(): void {
 
-        this.items = new Array<Person>();
-        this.items.push(new Person(0, "Macron", "Emmanuel", "emacron@gmail.com"));
-        this.items.push(new Person(1, "Chirac", "Jacques", "jacky@paradis.et"));
-        this.items.push(new Person(2, "Hollande", "François", "fhollande@ps.fr"));
-        this.items.push(new Person(3, "Trump", "Donald", "fake@president.com"));
-        this.items.push(new Person(4, "Merkel", "Angela", "amerkel@cdu.de"));
+        console.log(1);
+        this.subscription = this.dataService.getContacts().subscribe(
+
+            (data: Array<Person>) =>
+                {
+                    console.log(2);
+                    this.persons = data;
+                },
+            (err) => console.log(3),
+            () => console.log(4)
+
+        );
+        console.log(5, this.persons);
+    }
+
+    ngOnChanges(): void {
+
+    }
+
+    ngOnDestroy(): void {
+
+        this.subscription.unsubscribe();
     }
 
     myDelete(id: number): void {
 
-        const index = this.items.findIndex( (element) => element.id === id);
-        this.items.splice(index, 1);
+        this.dataService.deleteContact(id);
+        const index = this.persons.findIndex( (element) => element.id === id);
+        this.persons.splice(index, 1);
     }
 
     myAdd(person: Person): void {
 
-        this.items.push(person);
+        this.dataService.addContact(person);
+        this.persons.push(person);
     }
 }
