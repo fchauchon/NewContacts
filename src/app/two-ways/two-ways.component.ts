@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class TwoWaysComponent implements OnInit {
 
     myValue = "Initial value";
+
     constructor() { }
 
     ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { Person } from '../classes/person';
 
 @Component({
@@ -12,10 +12,8 @@ export class FormPageComponent implements OnInit, OnDestroy {
 
     @Output() addRequest = new EventEmitter<Person>();
     customerForm: FormGroup;
-    sub: Subscription;
 
-    constructor() {
-    }
+    constructor() { }
 
     ngOnInit(): void {
 
@@ -26,12 +24,14 @@ export class FormPageComponent implements OnInit, OnDestroy {
             email: new FormControl('', [Validators.required, Validators.email])
         });
 
-        const emailFormControl = this.customerForm.get('email');
-        this.sub = emailFormControl.valueChanges.subscribe(
-            (data) => console.log(data),
-            (err) => console.log('erreur'),
-            () => console.log('complete')
-        );
+        const firstNameFormControl = this.customerForm.get('firstName');
+        const obs1 = firstNameFormControl.valueChanges;
+        const lastNameFormControl = this.customerForm.get('lastName');
+        const obs2 = lastNameFormControl.valueChanges;
+
+        combineLatest([obs1, obs2]).subscribe(
+            ([data1, data2]) => console.log(data1, data2)
+        )
     }
 
     submitForm(): void {
@@ -47,7 +47,6 @@ export class FormPageComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
 
-        this.sub.unsubscribe()
     }
 
 }

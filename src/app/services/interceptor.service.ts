@@ -10,13 +10,13 @@ export class InterceptorService implements HttpInterceptor {
 
     token = null;
 
-    constructor(private dataService: DataService) {
-    }
+    constructor(private dataService: DataService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         if (req.url !== '/authen') {
             if (this.token === null) {
+
                 this.token = this.dataService.getToken();
             }
             const clone = req.clone({ setHeaders: { Authorization: `token ${this.token}` }});

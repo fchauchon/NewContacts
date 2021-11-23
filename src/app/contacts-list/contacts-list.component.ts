@@ -13,25 +13,17 @@ export class ContactsListComponent implements OnInit, OnChanges, OnDestroy {
     persons!: Array<Person>;
     subscription: Subscription;
 
-    constructor(private dataService: DataService) {
-
-    }
+    constructor(private dataService: DataService) { }
 
     ngOnInit(): void {
 
-        console.log(1);
         this.subscription = this.dataService.getContacts().subscribe(
 
             (data: Array<Person>) =>
                 {
-                    console.log(2);
                     this.persons = data;
-                },
-            (err) => console.log(3),
-            () => console.log(4)
-
+                }
         );
-        console.log(5, this.persons);
     }
 
     ngOnChanges(): void {

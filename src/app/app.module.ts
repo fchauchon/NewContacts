@@ -15,6 +15,8 @@ import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactComponent } from './contact/contact.component';
 import { TwoWaysComponent } from './two-ways/two-ways.component';
 import { InterceptorService } from './services/interceptor.service';
+import { ObservablesComponent } from './observables/observables.component';
+import { ObsComponent } from './obs/obs.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { InterceptorService } from './services/interceptor.service';
     FormPageComponent,
     ContactsListComponent,
     ContactComponent,
-    TwoWaysComponent
+    TwoWaysComponent,
+    ObservablesComponent,
+    ObsComponent
   ],
   imports: [
     BrowserModule,

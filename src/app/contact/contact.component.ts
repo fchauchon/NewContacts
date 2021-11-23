@@ -12,9 +12,7 @@ export class ContactComponent implements OnInit, OnChanges, AfterViewInit, OnDes
     @Output() deleteRequest= new EventEmitter<number>();
     styles= {};
 
-    constructor() {
-
-     }
+    constructor() { }
 
     ngOnInit(): void {
 

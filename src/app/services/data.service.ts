@@ -9,8 +9,7 @@ import { Person } from '../classes/person';
 })
 export class DataService {
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) { }
 
     getContacts(): Observable<Array<Person>> {
 
