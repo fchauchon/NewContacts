@@ -40,7 +40,8 @@ export class FormPageComponent implements OnInit, OnDestroy {
             this.customerForm.get('id').value,
             this.customerForm.get('firstName').value,
             this.customerForm.get('lastName').value,
-            this.customerForm.get('email').value
+            this.customerForm.get('email').value,
+            "Femme"
         );
         this.addRequest.emit(person);
     }

@@ -17,6 +17,8 @@ import { TwoWaysComponent } from './two-ways/two-ways.component';
 import { InterceptorService } from './services/interceptor.service';
 import { ObservablesComponent } from './observables/observables.component';
 import { ObsComponent } from './obs/obs.component';
+import { ProducerComponent } from './producer/producer.component';
+import { PageObsComponent } from './page-obs/page-obs.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ObsComponent } from './obs/obs.component';
     ContactComponent,
     TwoWaysComponent,
     ObservablesComponent,
-    ObsComponent
+    ObsComponent,
+    ProducerComponent,
+    PageObsComponent
   ],
   imports: [
     BrowserModule,

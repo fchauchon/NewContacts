@@ -5,35 +5,40 @@
             "firstName": "Jack",
             "lastName": "Bauer",
             "email": "jack.bauer@fbi.com",
-            "serieId": 5
+            "serieId": 5,
+            "gender": "Homme"
         },
         {
             "id": 2,
             "firstName": "Walter",
             "lastName": "White",
             "email": "walter.white@breakingbad.com",
-            "serieId": 1
+            "serieId": 1,
+            "gender": "Homme"
         },
         {
             "id": 3,
             "firstName": "Carrie",
             "lastName": "Mathison",
             "email": "carrie.mathison@cia.com",
-            "serieId": 2
+            "serieId": 2,
+            "gender": "Femme"
         },
         {
             "id": 4,
             "firstName": "Harvey",
             "lastName": "Specter",
             "email": "harvey.specter@pearson-specter-litt.com",
-            "serieId": 4
+            "serieId": 4,
+            "gender": "Homme"
         },
         {
             "id": 5,
             "firstName": "Tyrion",
             "lastName": "Lannister",
             "email": "tyrion.lannister@got.com",
-            "serieId": 3
+            "serieId": 3,
+            "gender": "Homme"
         }
     ],
     "series": [

@@ -17,7 +17,7 @@ export class ContactsListComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit(): void {
 
-        this.subscription = this.dataService.getContacts().subscribe(
+        this.subscription = this.dataService.getContactsFemme().subscribe(
 
             (data: Array<Person>) =>
                 {
