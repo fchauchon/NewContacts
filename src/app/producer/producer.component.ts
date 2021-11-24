@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../services/data.service';
+import { CommunicationService } from '../services/communication.service';
 
 @Component({
   selector: 'app-producer',
@@ -10,13 +10,12 @@ export class ProducerComponent implements OnInit {
 
     inputValue = '';
 
-    constructor(private dataService: DataService) { }
+    constructor(private communicationService: CommunicationService) { }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void { }
 
-    sendData() {
-        this.dataService.pushData(this.inputValue);
+    sendData(): void {
+        this.communicationService.pushData(this.inputValue);
     }
 
 }

@@ -1,5 +1,11 @@
-<textarea cols=120 rows="15" [hidden]="isHidden">{{ log }}</textarea><br/>
-<button (click)="simple()">Simple</button>
-<button (click)="map()">Map</button>
-<button (click)="distinct()">Distinct</button><br/>
-
+<div class="bgGeneral">
+    <textarea [ngClass]="isClassBg1 ? 'bg1' : 'bg2'" cols=120 rows="15" [hidden]="isLogHidden">{{ logText }}</textarea><br/>
+    <button (click)="toggleLog()">{{ isLogHidden ? "Show" : "Hide" }}</button>
+    <button (click)="toggleBgColor()">Change bgColor</button><br/>
+    <button (click)="simple()">Simple</button>
+    <button (click)="map()">Map</button>
+    <button (click)="mapAndFilter()">Map & filter</button>
+    <button (click)="distinct()">Distinct</button><br/>
+    <br/>
+    Temps écoulé depuis l'affichage de la page : {{ timer$ | async }} secondes
+</div>

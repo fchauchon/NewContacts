@@ -1,7 +1,12 @@
-.myRed {
-    background-color: red;
+.bgGeneral {
+    padding: 10px;
+    background-color: darkgray;
 }
 
-.myBlue {
+.bg1 {
+    background-color: white;
+}
+
+.bg2 {
     background-color: blue;
 }

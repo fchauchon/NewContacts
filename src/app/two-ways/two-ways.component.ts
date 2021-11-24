@@ -11,7 +11,6 @@ export class TwoWaysComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void { }
 
 }

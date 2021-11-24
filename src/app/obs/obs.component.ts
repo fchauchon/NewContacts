@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { of, range, Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Observable, of, range, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
+import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -8,65 +9,64 @@ import { DataService } from '../services/data.service';
   templateUrl: './obs.component.html',
   styleUrls: ['./obs.component.css']
 })
-export class ObsComponent implements OnInit {
+export class ObsComponent implements OnInit, OnDestroy {
 
-    log = '';
-    isHidden = false;
-    color = false;
-    class = 'myRed';
-    styles = { 'background-color': 'red' };
-    inputValue = '';
+    logText: string = '';
+    isLogHidden: boolean = false;
+    
+    isClassBg1: boolean = true;
 
-    constructor(private dataService: DataService) { }
+    timer$!: Observable<number>;
+    subTimer: Subscription = null;
+
+    constructor(private communicationService: CommunicationService) { }
 
     ngOnInit(): void {
+        this.communicationService.onData().subscribe(
+            data => this.logText += data + "\n"
+        );
 
-        this.dataService.onData().subscribe(
-            data => this.log += data + "\n"
-        )
+        this.timer$ = interval(1000);
     }
 
     clearLog() {
-        this.log = '';
+        this.logText = '';
     }
 
-    hide() {
-        this.isHidden = true;
+    toggleLog() {
+        this.isLogHidden = ! this.isLogHidden;
     }
 
-    show() {
-        this.isHidden = false;
-    }
-
-    changeColor() {
-        this.color = ! this.color;
-        this.styles = { 'background-color': this.color ? 'red' : 'green' };
-        this.class = this.color ? "myBlue" : "myRed";
+    toggleBgColor() {
+        this.isClassBg1 = ! this.isClassBg1;
     }
 
     simple() {
         this.clearLog();
         const simple$ = range(1, 10);
         simple$.subscribe(
-            (data: number) => this.log += "\n" + data
+            (data: number) => this.logText += data + "\n"
         );
     }
 
     map() {
-        const myArray = new Array();
         this.clearLog();
         const simple$ = range(1, 10).pipe(
             map( data => data * 10),
-            tap( x => {
-                    console.log(x);
-                    myArray.push(x);
-                }),
-            filter( data => data >= 50),
         );
         simple$.subscribe(
-            (data: number) => this.log += "\n" + data,
-            (err) => {},
-            () => console.log(myArray)
+            (data: number) => this.logText += data + "\n"
+        );
+    }
+
+    mapAndFilter() {
+        this.clearLog();
+        const simple$ = range(1, 10).pipe(
+            map( data => data * 10),
+            filter( data => data >= 50)
+        );
+        simple$.subscribe(
+            (data: number) => this.logText += data + "\n"
         );
     }
 
@@ -77,8 +77,15 @@ export class ObsComponent implements OnInit {
         );
 
         myObs$.subscribe(
-            data => this.log += data + "\n"
+            data => this.logText += data + "\n"
         )
+    }
+
+    ngOnDestroy(): void {
+        if (this.subTimer != null) {
+           this.subTimer.unsubscribe();
+           this.subTimer = null;
+        }
     }
 
 }
