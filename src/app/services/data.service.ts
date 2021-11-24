@@ -14,7 +14,7 @@ export class DataService {
     constructor(private http: HttpClient) { }
 
     getContacts(): Observable<Array<Person>> {
-        return this.http.get<Array<Person>>('actors');
+        return this.http.get<Array<Person>>(this.baseUrl + 'actors');
     }
 
     addContact(person: Person): void {
@@ -28,5 +28,6 @@ export class DataService {
     getToken(): string {
         return "0123456789";
     }
+
 
 }
