@@ -10,3 +10,7 @@
 .bg2 {
     background-color: blue;
 }
+
+button {
+    margin: 2px;
+}

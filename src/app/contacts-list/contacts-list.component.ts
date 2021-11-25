@@ -1,6 +1,7 @@
 import {  Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Person } from '../classes/person';
+import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -12,16 +13,27 @@ export class ContactsListComponent implements OnInit, OnDestroy {
 
     persons!: Array<Person>;
     subscription: Subscription;
+    hideMe: boolean = true;
+    diameter: number = 50;
 
-    constructor(private dataService: DataService) { }
+    constructor(
+        private dataService: DataService,
+        private communicationService: CommunicationService
+    ) { }
 
     ngOnInit(): void {
-        this.subscription = this.dataService.getContacts().subscribe(
+        this.communicationService.onRefresh().subscribe(
+            () => {
+                this.hideMe = false;
+                this.subscription = this.dataService.getContacts().subscribe(
 
-            (data: Array<Person>) =>
-                {
-                    this.persons = data;
-                }
+                    (data: Array<Person>) =>
+                    {
+                        this.hideMe = true;
+                        this.persons = data;
+                    }
+                );
+            }
         );
     }
 
@@ -29,14 +41,4 @@ export class ContactsListComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    myDelete(id: number): void {
-        this.dataService.deleteContact(id);
-        const index = this.persons.findIndex( (element) => element.id === id);
-        this.persons.splice(index, 1);
-    }
-
-    myAdd(person: Person): void {
-        this.dataService.addContact(person);
-        this.persons.push(person);
-    }
 }

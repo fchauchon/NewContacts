@@ -1,22 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicationService {
 
-    subject = new Subject<string>();
+    messageQueue = new Subject<string>();
+    errorQueue = new Subject<string>();
+    refreshQueue = new BehaviorSubject<boolean>(true);
 
     constructor() { }
   
-    pushData(data: string) {
-
-        this.subject.next(data);
+    pushMessage(message: string) {
+        this.messageQueue.next(message);
     }
 
-    onData(): Observable<string> {
-
-        return this.subject.asObservable();
+    onMessage(): Observable<string> {
+        return this.messageQueue.asObservable();
     }
+
+    pushError(error: string) {
+        this.errorQueue.next(error);
+    }
+
+    onError(): Observable<string> {
+        return this.errorQueue.asObservable();
+    }
+
+    pushRefresh(refresh: boolean) {
+        this.refreshQueue.next(refresh);
+    }
+
+    onRefresh(): Observable<boolean> {
+        return this.refreshQueue.asObservable();
+    }
+
 }

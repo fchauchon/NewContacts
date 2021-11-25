@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { Person } from '../classes/person';
+import { CommunicationService } from '../services/communication.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +14,10 @@ export class ContactComponent implements OnInit, OnChanges, AfterViewInit, OnDes
     @Output() deleteRequest= new EventEmitter<number>();
     styles= {};
 
-    constructor() { }
+    constructor(
+        private dataService: DataService,
+        private communicationService: CommunicationService
+    ) { }
 
     ngOnInit(): void {
 
@@ -30,7 +35,8 @@ export class ContactComponent implements OnInit, OnChanges, AfterViewInit, OnDes
 
     delete(): void {
 
-        this.deleteRequest.emit(this.person.id);
+        this.dataService.deleteContact(this.person.id);
+        this.communicationService.pushRefresh(true);
     }
 
 }

@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +24,9 @@ import { ObservablesComponent } from './observables/observables.component';
 import { ObsComponent } from './obs/obs.component';
 import { ProducerComponent } from './producer/producer.component';
 import { PageObsComponent } from './page-obs/page-obs.component';
+import { SearchComponent } from './search/search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TwoPasswordsComponent } from './two-passwords/two-passwords.component';
 
 @NgModule({
   declarations: [
@@ -34,14 +42,22 @@ import { PageObsComponent } from './page-obs/page-obs.component';
     ObservablesComponent,
     ObsComponent,
     ProducerComponent,
-    PageObsComponent
+    PageObsComponent,
+    SearchComponent,
+    TwoPasswordsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatInputModule,
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }

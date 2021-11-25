@@ -22,7 +22,7 @@ export class ObsComponent implements OnInit, OnDestroy {
     constructor(private communicationService: CommunicationService) { }
 
     ngOnInit(): void {
-        this.communicationService.onData().subscribe(
+        this.communicationService.onMessage().subscribe(
             data => this.logText += data + "\n"
         );
 

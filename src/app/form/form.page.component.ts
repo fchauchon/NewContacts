@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Subscription } from 'rxjs';
 import { Person } from '../classes/person';
+import { CommunicationService } from '../services/communication.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-form-page',
@@ -10,10 +12,12 @@ import { Person } from '../classes/person';
 })
 export class FormPageComponent implements OnInit, OnDestroy {
 
-    @Output() addRequest = new EventEmitter<Person>();
     customerForm: FormGroup;
 
-    constructor() { }
+    constructor(
+        private dataService: DataService,
+        private communicationService: CommunicationService
+    ) { }
 
     ngOnInit(): void {
 
@@ -43,7 +47,8 @@ export class FormPageComponent implements OnInit, OnDestroy {
             this.customerForm.get('email').value,
             "Femme"
         );
-        this.addRequest.emit(person);
+        this.dataService.addContact(person);
+        this.communicationService.pushRefresh(true);
     }
 
     ngOnDestroy() {
