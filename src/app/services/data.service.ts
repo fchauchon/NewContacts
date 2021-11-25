@@ -4,19 +4,21 @@ import { Observable, of } from 'rxjs';
 import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Person } from '../classes/person';
 import { CommunicationService } from './communication.service';
-
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-    baseUrl: string = 'http://localhost:3000/';
     cache: Array<Person> = null;
+    baseUrl: string;
 
     constructor(
         private http: HttpClient,
         private communicationService: CommunicationService
-    ) { }
+    ) {
+        this.baseUrl = environment.baseUrl;
+    }
 
     getContacts(): Observable<Array<Person>> {
 
