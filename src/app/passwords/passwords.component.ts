@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { combineLatest, merge } from 'rxjs';
+import { combineLatest, merge, Subscription, timer } from 'rxjs';
 
 @Component({
-  selector: 'app-two-passwords',
-  templateUrl: './two-passwords.component.html',
-  styleUrls: ['./two-passwords.component.css']
+  selector: 'app-passwords',
+  templateUrl: './passwords.component.html',
+  styleUrls: ['./passwords.component.css']
 })
-export class TwoPasswordsComponent implements OnInit {
+export class PasswordsComponent implements OnInit, OnDestroy {
 
     form!: FormGroup;
     password: FormControl = new FormControl('');
@@ -16,6 +16,7 @@ export class TwoPasswordsComponent implements OnInit {
     value = 0;
     bufferValue = 100;
     isHidden: boolean = true;
+    subTimer: Subscription = null;
 
     constructor() { }
 
@@ -29,7 +30,16 @@ export class TwoPasswordsComponent implements OnInit {
             data => this.value = this.evaluate(data)
         );
         combineLatest([this.password.valueChanges, this.reEnterPassword.valueChanges]).subscribe(
-            ([data1, data2]) => this.isHidden = ! (data1 === data2 && this.value === 100)
+            ([data1, data2]) => {
+                if (data1 === data2 && this.value === 100) {
+
+                    this.subTimer = timer(0, 1000).subscribe(
+                        () => this.isHidden = ! this.isHidden
+                    )
+                } else {
+                    this.isHidden = true;
+                }
+            }
         )
     }
 
@@ -51,4 +61,10 @@ export class TwoPasswordsComponent implements OnInit {
         return resultat;
     }
 
+    ngOnDestroy() {
+        if (this.subTimer != null) {
+            this.subTimer.unsubscribe();
+            this.subTimer = null;
+        }
+    }
 }

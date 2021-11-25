@@ -27,7 +27,7 @@ import { ProducerComponent } from './producer/producer.component';
 import { PageObsComponent } from './page-obs/page-obs.component';
 import { SearchComponent } from './search/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TwoPasswordsComponent } from './two-passwords/two-passwords.component';
+import { PasswordsComponent } from './passwords/passwords.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { TwoPasswordsComponent } from './two-passwords/two-passwords.component';
     ProducerComponent,
     PageObsComponent,
     SearchComponent,
-    TwoPasswordsComponent
+    PasswordsComponent
   ],
   imports: [
     BrowserModule,
