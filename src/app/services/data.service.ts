@@ -60,11 +60,21 @@ export class DataService {
     }
 
     addContact(person: Person): void {
-        this.http.post(this.baseUrl + 'actors/', person).subscribe();
+        this.http.post(this.baseUrl + 'actors/', person).pipe(
+            catchError( () => {
+                this.communicationService.pushError('Erreur avec le json-server !')
+                return of(null);
+            })
+        ).subscribe();
     }
 
     deleteContact(id: number): void {
-        this.http.delete(this.baseUrl + 'actors/' + id).subscribe();
+        this.http.delete(this.baseUrl + 'actors/' + id).pipe(
+            catchError( () => {
+                this.communicationService.pushError('Erreur avec le json-server !')
+                return of(null);
+            })
+        ).subscribe();
     }
 
     getToken(): string {
