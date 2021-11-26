@@ -13,3 +13,8 @@
 button {
     margin: 2px;
 }
+
+.filler {
+    height: 300px;
+    width: 600px;
+}
