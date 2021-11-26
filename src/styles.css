@@ -7,6 +7,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: coral;
     min-height: 800px;
 }
-.padding {
+.component {
     padding: 5px;
 }
