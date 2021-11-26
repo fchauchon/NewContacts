@@ -3,9 +3,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .page {
-    padding: 10px;
+    padding: 5px;
     background-color: coral;
+    min-height: 800px;
 }
 .padding {
-    padding: 10px;
+    padding: 5px;
 }
