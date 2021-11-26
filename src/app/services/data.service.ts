@@ -54,7 +54,7 @@ export class DataService {
     searchContacts(query: string): Observable<Array<string>> {
         return this.http.get(this.baseUrl + 'actors?lastName_like=' + query).pipe(
             map(
-                (data: Array<object>) => data.map( obj => obj['firstName'] + ' ' + obj['lastName'] )
+                (data: Array<object>) => data.map( obj => obj['firstName'] + ' ' + obj['lastName'].toUpperCase() )
             )
         );
     }

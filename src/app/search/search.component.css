@@ -2,3 +2,8 @@
     padding: 10px;
     background-color: lavender;
 }
+
+.results {
+    padding-left: 50px;
+    font-style: italic;
+}
