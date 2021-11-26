@@ -1,5 +1,4 @@
-.bgGeneral {
-    padding: 10px;
+.bg {
     background-color: darkgray;
 }
 
@@ -9,4 +8,8 @@
 
 .bg2 {
     background-color: blue;
+}
+
+button {
+    margin: 2px;
 }

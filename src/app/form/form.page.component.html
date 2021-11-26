@@ -1,33 +1,85 @@
-<div class="min">
+<div class="padding bg">
+    <h3>Créer une nouvelle personne</h3>
     <form [formGroup]="customerForm" (ngSubmit)="submitForm()">
-        Etat du formulaire: {{ customerForm.status }}<br/>
-        Id: <input formControlName="id" /><br/>
-        <div *ngIf="customerForm.get('id').errors?.required">
-            L'id est obligatoire
+        <div class="row">
+            <div class="col-2">
+                Etat du formulaire:
+            </div>
+            <div class="col-2">
+                {{ customerForm.status }}
+            </div>
+            <div class="col-8">
+            </div>
         </div>
-        <div *ngIf="customerForm.get('id').errors?.pattern">
-            L'id doit être un nombre
+        <div class="row">
+            <div class="col-2">
+                <mat-form-field>
+                    <mat-label>Id:</mat-label>
+                    <input matInput formControlName="id" />
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <ng-container *ngIf="customerForm.get('id').errors?.required">
+                    L'id est obligatoire
+                </ng-container>
+            </div>
+            <div class="col-8">
+            </div>
         </div>
-        FirstName: <input formControlName="firstName" /><br/>
-        <div *ngIf="customerForm.get('firstName').errors?.required">
-            Le nom est obligatoire
+        <div class="row">
+            <div class="col-2">
+                <mat-form-field>
+                    <mat-label>FirstName:</mat-label>
+                    <input matInput formControlName="firstName" />
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <ng-container *ngIf="customerForm.get('firstName').errors?.required">
+                    Le nom est obligatoire
+                </ng-container>
+                <ng-container *ngIf="customerForm.get('id').errors?.pattern">
+                    L'id doit être un nombre
+                </ng-container>
+                <ng-container *ngIf="customerForm.get('firstName').errors?.minlength">
+                    Le nom doit avoir 8 caractères !!!!!!!!!
+                </ng-container>
+            </div>
+            <div class="col-8">
+            </div>
         </div>
-        <div *ngIf="customerForm.get('firstName').errors?.minlength">
-            Le nom doit avoir 8 caractères !!!!!!!!!
+        <div class="row">
+            <div class="col-2">
+                <mat-form-field>
+                    <mat-label>LastName:</mat-label>
+                    <input matInput formControlName="lastName" />
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <ng-container *ngIf="customerForm.get('lastName').errors?.required">
+                    Le prénom est obligatoire
+                </ng-container>
+            </div>
+            <div class="col-8">
+            </div>
         </div>
-        LastName: <input formControlName="lastName" /><br/>
-        <div *ngIf="customerForm.get('lastName').errors?.required">
-            Le prénom est obligatoire
+        <div class="row">
+            <div class="col-2">
+                <mat-form-field>
+                    <mat-label>Email:</mat-label>
+                    <input matInput type="email" formControlName="email" />
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <div *ngIf="customerForm.get('email').errors?.required">
+                    Le mail est obligatoire
+                </div>
+                <div *ngIf="customerForm.get('email').dirty && customerForm.get('email').errors?.email">
+                    Le mail est incorrect
+                </div>
+            </div>
+            <div class="col-8">
+            </div>
         </div>
-        Email: <input type="email" formControlName="email" /><br/>
-        <div *ngIf="customerForm.get('email').errors?.required">
-            Le mail est obligatoire
-        </div>
-        <div *ngIf="customerForm.get('email').dirty && customerForm.get('email').errors?.email">
-            Le mail est incorrect
-        </div>
-        
-        <br/>
-        <button [disabled]="!customerForm.valid">Submit</button>
+        <button mat-raised-button color="primary" [disabled]="!customerForm.valid">Créer</button>
     </form>
 </div>

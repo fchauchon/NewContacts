@@ -1,5 +1,5 @@
-<li>
-    {{ person.id }} - {{ person.firstName | uppercase }} {{ person.lastName }}
-    <button (click)="delete()">Supprimer</button>
+<li class="bg">
+    {{ person.id }} - {{ person.firstName }} {{ person.lastName | uppercase }}
+    <button mat-raised-button color="basic" (click)="delete()">Supprimer</button>
     <ng-content></ng-content>
 </li>

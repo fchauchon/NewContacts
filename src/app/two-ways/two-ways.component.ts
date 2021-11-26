@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TwoWaysComponent implements OnInit {
 
-    myValue = "Initial value";
+    myValue = "Valeur initiale";
 
     constructor() { }
 

@@ -1,13 +1,16 @@
-<ul>
-    <ng-container *ngIf="persons && persons.length > 0">
-        <div *ngFor="let person of persons">
-            <app-contact (deleteRequest)="myDelete($event)" [person]="person"></app-contact>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="persons && persons.length <= 0">
-        Pas d'élément !!!
-    </ng-container>
-</ul>
-<div style="background-color: white;">
-    <app-form-page (addRequest)="myAdd($event)"></app-form-page>
+<div class="padding bg">
+    <h3>Liste des personnes</h3>
+    <ul>
+        <ng-container *ngIf="persons && persons.length > 0">
+            <div *ngFor="let person of persons">
+                <app-contact (deleteRequest)="myDelete($event)" [person]="person"></app-contact>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="persons && persons.length <= 0">
+            Pas d'élément !!!
+        </ng-container>
+    </ul>
+    <div style="background-color: white;">
+        <app-form-page (addRequest)="myAdd($event)"></app-form-page>
+    </div>
 </div>

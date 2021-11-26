@@ -1,3 +1,8 @@
-<div class="bgGeneral">
-    Entrer un texte: <input [(ngModel)]="inputValue" />&nbsp;<button (click)="sendData()">Send data</button>
+<div class="padding bg">
+    <h3>Envoyer des données</h3>
+    <mat-form-field>
+        <mat-label>Un texte:</mat-label>
+        <input matInput [(ngModel)]="inputValue" />
+    </mat-form-field>
+    <button mat-flat-button color="accent" (click)="sendData()">Envoyer</button>
 </div>

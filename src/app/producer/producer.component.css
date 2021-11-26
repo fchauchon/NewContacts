@@ -1,4 +1,7 @@
-.bgGeneral {
-    padding: 10px;
+.bg {
     background-color:darksalmon;
+}
+
+button {
+    margin: 2px;
 }
