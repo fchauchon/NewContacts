@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContactPageComponent } from './contact-page/contact.page.component';
-import { AboutPageComponent } from './about/about.page.component';
-import { FormPageComponent } from './form/form.page.component';
-import { TwoWaysComponent } from './two-ways/two-ways.component';
+import { AboutPageComponent } from './about-page/about.page.component';
+import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
 import { ObservablesComponent } from './observables/observables.component';
-import { PageObsComponent } from './page-obs/page-obs.component';
+import { ObsPageComponent } from './obs-page/obs-page.component';
 import { PasswordsComponent } from './passwords/passwords.component';
 
 const routes: Routes = [
     { path: '', component: ContactPageComponent },
-    { path: 'twoWays', component: TwoWaysComponent },
+    { path: 'twoWays', component: TwoWaysPageComponent },
     { path: 'observables', component: ObservablesComponent },
-    { path: 'obs', component: PageObsComponent },
+    { path: 'obs', component: ObsPageComponent },
     { path: 'passwords', component: PasswordsComponent },
     { path: 'about', component: AboutPageComponent }
 ];
