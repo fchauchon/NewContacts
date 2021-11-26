@@ -5,6 +5,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .page {
     padding: 10px;
     background-color: coral;
+    min-height: 800px;
 }
 .padding {
     padding: 10px;

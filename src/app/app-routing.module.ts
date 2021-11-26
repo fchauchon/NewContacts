@@ -5,14 +5,14 @@ import { AboutPageComponent } from './about-page/about.page.component';
 import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
 import { ObservablesComponent } from './observables/observables.component';
 import { ObsPageComponent } from './obs-page/obs-page.component';
-import { PasswordsComponent } from './passwords/passwords.component';
+import { PasswordsPageComponent } from './passwords-page/passwords-page.component';
 
 const routes: Routes = [
     { path: '', component: ContactPageComponent },
     { path: 'twoWays', component: TwoWaysPageComponent },
     { path: 'observables', component: ObservablesComponent },
     { path: 'obs', component: ObsPageComponent },
-    { path: 'passwords', component: PasswordsComponent },
+    { path: 'passwords', component: PasswordsPageComponent },
     { path: 'about', component: AboutPageComponent }
 ];
 

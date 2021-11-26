@@ -29,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PasswordsComponent } from './passwords/passwords.component';
 import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
 import { AboutComponent } from './about/about.component';
+import { PasswordsPageComponent } from './passwords-page/passwords-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AboutComponent } from './about/about.component';
     SearchComponent,
     PasswordsComponent,
     TwoWaysPageComponent,
-    AboutComponent
+    AboutComponent,
+    PasswordsPageComponent
   ],
   imports: [
     BrowserModule,
