@@ -6,7 +6,7 @@
                 Etat du formulaire:
             </div>
             <div class="col-2">
-                {{ customerForm.status }}
+                <img [src]="customerForm.status === 'INVALID' ? '../../assets/error.png': '../../assets/valid.png'" />
             </div>
             <div class="col-8">
             </div>
