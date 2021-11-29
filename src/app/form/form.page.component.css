@@ -1,3 +1,7 @@
 .bg {
     background-color: azure;
 }
+
+.padding_bottom {
+    padding-bottom: 20px;
+}
