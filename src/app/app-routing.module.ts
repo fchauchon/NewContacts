@@ -13,7 +13,8 @@ const routes: Routes = [
     { path: 'observables', component: ObservablesComponent },
     { path: 'obs', component: ObsPageComponent },
     { path: 'passwords', component: PasswordsPageComponent },
-    { path: 'about', component: AboutPageComponent }
+    { path: 'about', component: AboutPageComponent },
+    { path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule) },
 ];
 
 @NgModule({

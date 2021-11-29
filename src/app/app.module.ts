@@ -30,6 +30,7 @@ import { PasswordsComponent } from './passwords/passwords.component';
 import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
 import { AboutComponent } from './about/about.component';
 import { PasswordsPageComponent } from './passwords-page/passwords-page.component';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { PasswordsPageComponent } from './passwords-page/passwords-page.componen
     MatButtonModule,
     MatInputModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    AdminModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
