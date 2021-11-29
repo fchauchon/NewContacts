@@ -27,7 +27,7 @@ export class DataService {
                 delay(2000),
                 tap( (data : Array<Person>) => this.cache = data ),
                 catchError( () => {
-                    this.communicationService.pushError('Le json-server est absent !')
+                    this.communicationService.pushError('Récupérer les contacts : erreur avec le json-server !')
                     return of(null);
                 })
             );
@@ -47,7 +47,11 @@ export class DataService {
                     data
                         .filter( obj => obj['gender'] === "Femme" )
                         .map( obj => new Person(obj['id'], obj['firstName'], obj['lastName'], obj['email'], obj['gender']) )
-            )
+            ),
+            catchError( () => {
+                this.communicationService.pushError('Récupérer les contacts filtrés : erreur avec le json-server !')
+                return of(null);
+            })
         );
     }
 
@@ -59,22 +63,24 @@ export class DataService {
         );
     }
 
-    addContact(person: Person): void {
-        this.http.post(this.baseUrl + 'actors/', person).pipe(
+    addContact(person: Person): Observable<boolean> {
+        return this.http.post(this.baseUrl + 'actors/', person).pipe(
+            map( () => true ),
             catchError( () => {
-                this.communicationService.pushError('Erreur avec le json-server !')
-                return of(null);
+                this.communicationService.pushError('Ajout du contact : erreur avec le json-server !')
+                return of(false);
             })
-        ).subscribe();
+        );
     }
 
-    deleteContact(id: number): void {
-        this.http.delete(this.baseUrl + 'actors/' + id).pipe(
+    deleteContact(id: number): Observable<boolean> {
+        return this.http.delete(this.baseUrl + 'actors/' + id).pipe(
+            map( () => true ),
             catchError( () => {
-                this.communicationService.pushError('Erreur avec le json-server !')
-                return of(null);
+                this.communicationService.pushError('Suppression du contact : erreur avec le json-server !')
+                return of(false);
             })
-        ).subscribe();
+        );
     }
 
     getToken(): string {

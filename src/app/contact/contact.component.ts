@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Person } from '../classes/person';
 import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
@@ -11,7 +11,6 @@ import { DataService } from '../services/data.service';
 export class ContactComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
 
     @Input() person!: Person;
-    @Output() deleteRequest= new EventEmitter<number>();
     styles= {};
 
     constructor(
@@ -34,9 +33,9 @@ export class ContactComponent implements OnInit, OnChanges, AfterViewInit, OnDes
     }
 
     delete(): void {
-
-        this.dataService.deleteContact(this.person.id);
-        this.communicationService.pushRefresh(true);
+        this.dataService.deleteContact(this.person.id).subscribe(
+            (result: boolean) => { if (result) { this.communicationService.pushRefresh(true) } }
+        );
     }
 
 }
