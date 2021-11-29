@@ -7,7 +7,9 @@
     <button mat-flat-button color="accent" (click)="simple()">Simple</button>
     <button mat-flat-button color="accent" (click)="map()">Map</button>
     <button mat-flat-button color="accent" (click)="mapAndFilter()">Map & filter</button>
-    <button mat-flat-button color="accent" (click)="distinct()">Distinct</button><br/>
+    <button mat-flat-button color="accent" (click)="distinct()">Distinct</button>
+    <button mat-flat-button color="accent" (click)="takeUntil()">takeUntil</button>
+    <button mat-flat-button color="accent" (click)="reduce()">reduce</button><br/>
     <br/>
     Temps écoulé depuis l'affichage de la page : {{ timer$ | async }} secondes
 </div>

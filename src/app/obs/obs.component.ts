@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { interval, Observable, of, range, Subject, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
+import { interval, Observable, of, range, Subject, Subscription, timer } from 'rxjs';
+import { distinctUntilChanged, filter, map, reduce, take, takeUntil, tap } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
 
@@ -79,6 +79,31 @@ export class ObsComponent implements OnInit, OnDestroy {
         myObs$.subscribe(
             data => this.logText += data + "\n"
         )
+    }
+
+    takeUntil() {
+        this.clearLog();
+        const myObs$ = timer(0, 1000);
+        const myEnd$ = interval(10000);
+
+        myObs$.pipe(
+            takeUntil(myEnd$)
+        ).subscribe(
+            data => this.logText += data + "\n",
+            () => {},
+            () => this.logText += "Fin\n"
+        );
+    }
+
+    reduce() {
+        this.clearLog();
+        const myObs$ = range(1, 20);
+
+        myObs$.pipe(
+            reduce((prev, curr) => prev + curr)
+        ).subscribe(
+            data => this.logText += data + "\n"
+        );
     }
 
     ngOnDestroy(): void {
