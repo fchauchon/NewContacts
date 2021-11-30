@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 import { debounceTime, mergeMap } from 'rxjs/operators';
+import { Person } from '../classes/person';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { DataService } from '../services/data.service';
 })
 export class SearchComponent implements OnInit {
 
-    propositions: Array<string> = new Array<string>();
+    propositions: Array<Person> = new Array<Person>();
     searchForm: FormGroup;
     searchControl: FormControl;
 
@@ -24,17 +25,17 @@ export class SearchComponent implements OnInit {
         });
 
         this.searchControl.valueChanges.pipe(
-            debounceTime(1000),
-            mergeMap( (data: string) => {
-                if (data != null && data.length > 0) {
-                    return this.dataService.searchContacts(data)
+            debounceTime(2000),
+            mergeMap( (query: string) => {
+                if (query != null && query.length > 0) {
+                    return this.dataService.searchContacts(query)
                 } else {
-                    return of(['']);
+                    return of([]);
                 }
             })
         ).subscribe(
-            (data: Array<string>) => {
-                this.propositions = ['No result'];
+            (data: Array<Person>) => {
+                this.propositions = [];
                 if (data.length > 0) {
                     this.propositions = data
                 }

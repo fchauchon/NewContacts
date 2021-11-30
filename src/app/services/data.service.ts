@@ -25,7 +25,7 @@ export class DataService {
         if (this.cache === null) {
             return this.http.get<Array<Person>>(this.baseUrl + 'actors').pipe(
                 delay(2000),
-                tap( (data : Array<Person>) => this.cache = data ),
+                tap( data => this.cache = data ),
                 catchError( () => {
                     this.communicationService.pushError('Récupérer les contacts : erreur avec le json-server !')
                     return of(null);
@@ -55,12 +55,8 @@ export class DataService {
         );
     }
 
-    searchContacts(query: string): Observable<Array<string>> {
-        return this.http.get(this.baseUrl + 'actors?lastName_like=' + query).pipe(
-            map(
-                (data: Array<object>) => data.map( obj => obj['firstName'] + ' ' + obj['lastName'].toUpperCase() )
-            )
-        );
+    searchContacts(query: string): Observable<Array<Person>> {
+        return this.http.get<Array<Person>>(this.baseUrl + 'actors?lastName_like=' + query);
     }
 
     addContact(person: Person): Observable<boolean> {

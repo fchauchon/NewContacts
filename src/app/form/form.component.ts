@@ -5,11 +5,11 @@ import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
 
 @Component({
-  selector: 'app-form-page',
-  templateUrl: './form.page.component.html',
-  styleUrls: ['./form.page.component.css']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css']
 })
-export class FormPageComponent implements OnInit {
+export class FormComponent implements OnInit {
 
     customerForm: FormGroup;
 

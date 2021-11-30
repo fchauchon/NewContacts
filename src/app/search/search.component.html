@@ -8,7 +8,7 @@
     </form>
     <div class="results">
         <ng-container *ngFor="let prop of propositions">
-            {{ prop }}<br/>
+            {{ prop.firstName + ' ' + (prop.lastName | uppercase) }}<br/>
         </ng-container>
     </div>
 </div>

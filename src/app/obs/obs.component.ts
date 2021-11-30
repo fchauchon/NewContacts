@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { interval, Observable, of, range, Subject, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
+import { AsyncSubject, BehaviorSubject, interval, Observable, of, range, ReplaySubject, Subject, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
 
@@ -19,7 +20,9 @@ export class ObsComponent implements OnInit, OnDestroy {
     timer$!: Observable<number>;
     subTimer: Subscription = null;
 
-    constructor(private communicationService: CommunicationService) { }
+    constructor(
+        private http: HttpClient,
+        private communicationService: CommunicationService) { }
 
     ngOnInit(): void {
         this.communicationService.onMessage().subscribe(
@@ -78,7 +81,95 @@ export class ObsComponent implements OnInit, OnDestroy {
 
         myObs$.subscribe(
             data => this.logText += data + "\n"
-        )
+        );
+    }
+
+    mergeMap() {
+        this.clearLog();
+        const someIds = of(1);
+        let myObj = null;
+        
+        someIds.pipe(
+            mergeMap( (data) => this.http.get('http://localhost:3000/actors/' + data) ),
+            tap( (data) => myObj = {...data} ),
+            mergeMap( (data) => this.http.get('http://localhost:3000/series/' + data['serieId'])),
+            tap((data) => {
+                myObj.serie = {...data};
+                this.logText += JSON.stringify(myObj) + '\n';
+            })
+        ).subscribe();
+    }
+
+    switchMap() {
+        this.clearLog();
+        const someIds = of(1, 2, 3, 4, 5);
+        someIds.pipe(
+            switchMap( (data) => this.http.get('http://localhost:3000/actors/' + data) )
+        ).subscribe(
+            (data) => this.logText += 'switchMap: ' + JSON.stringify(data) + '\n'
+        );
+        
+    }
+
+    behaviorSubject() {
+        this.clearLog();
+        const subject = new BehaviorSubject("First value");
+
+        subject.subscribe(
+            (data) => this.logText += 'subject1: ' + data + '\n'
+        );
+
+        subject.subscribe(
+            (data) => this.logText += 'subject2: ' + data + '\n'
+        );
+
+        subject.next("Second value");
+
+        subject.subscribe(
+            (data) => this.logText += 'subject3: ' + data + '\n'
+        );
+
+        subject.complete();
+    }
+
+    replaySubject() {
+        this.clearLog();
+        const subject = new ReplaySubject(2);
+
+        subject.subscribe(
+            (data) => this.logText += 'subject1: ' + data + '\n'
+        );
+        
+        subject.next("First value");
+        subject.next("Second value");
+        subject.next("Third value");
+
+        subject.subscribe(
+            (data) => this.logText += 'subject2: ' + data + '\n'
+        );
+
+        subject.next("Fourth value");  
+        subject.complete();
+    }
+
+    asyncSubject() {
+        this.clearLog();
+        const subject = new AsyncSubject();
+
+        subject.subscribe(
+            (data) => this.logText += 'subject1: ' + data + '\n'
+        );
+        
+        subject.next("First value");
+        subject.next("Second value");
+        subject.next("Third value");
+
+        subject.subscribe(
+            (data) => this.logText += 'subject2: ' + data + '\n'
+        );
+
+        subject.next("Fourth value");
+        subject.complete();
     }
 
     ngOnDestroy(): void {

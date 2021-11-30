@@ -1,4 +1,4 @@
-import {  Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Person } from '../classes/person';
 import { CommunicationService } from '../services/communication.service';
@@ -14,7 +14,6 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     persons!: Array<Person>;
     subscription: Subscription;
     hideMe: boolean = true;
-    diameter: number = 50;
 
     constructor(
         private dataService: DataService,
@@ -26,12 +25,12 @@ export class ContactsListComponent implements OnInit, OnDestroy {
             () => {
                 this.hideMe = false;
                 this.subscription = this.dataService.getContacts().subscribe(
-
                     (data: Array<Person>) =>
                     {
-                        this.hideMe = true;
                         this.persons = data;
-                    }
+                    },
+                    (err) => {},
+                    () => this.hideMe = true
                 );
             }
         );

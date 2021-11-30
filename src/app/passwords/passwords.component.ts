@@ -14,7 +14,6 @@ export class PasswordsComponent implements OnInit, OnDestroy {
     reEnterPassword: FormControl = new FormControl('');
 
     value = 0;
-    bufferValue = 100;
     isHidden: boolean = true;
     subTimer: Subscription = null;
 
@@ -38,6 +37,10 @@ export class PasswordsComponent implements OnInit, OnDestroy {
                     )
                 } else {
                     this.isHidden = true;
+                    if (this.subTimer != null) {
+                        this.subTimer.unsubscribe();
+                        this.subTimer = null;
+                    }
                 }
             }
         )
@@ -46,7 +49,7 @@ export class PasswordsComponent implements OnInit, OnDestroy {
     evaluate(data: string): number {
 
         let resultat = 0;
-        if (data.length > 8) {
+        if (data.length >= 8) {
             resultat += 40;
         }
         if (data.indexOf('!') >= 0) {

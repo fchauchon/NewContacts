@@ -15,12 +15,11 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactPageComponent } from './contact-page/contact.page.component';
 import { AboutPageComponent } from './about-page/about.page.component';
-import { FormPageComponent } from './form/form.page.component';
+import { FormComponent } from './form/form.component';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactComponent } from './contact/contact.component';
 import { TwoWaysComponent } from './two-ways/two-ways.component';
 import { InterceptorService } from './services/interceptor.service';
-import { ObservablesComponent } from './observables/observables.component';
 import { ObsComponent } from './obs/obs.component';
 import { ProducerComponent } from './producer/producer.component';
 import { ObsPageComponent } from './obs-page/obs-page.component';
@@ -39,11 +38,10 @@ import { AdminModule } from './admin/admin.module';
     FooterComponent,
     ContactPageComponent,
     AboutPageComponent,
-    FormPageComponent,
+    FormComponent,
     ContactsListComponent,
     ContactComponent,
     TwoWaysComponent,
-    ObservablesComponent,
     ObsComponent,
     ProducerComponent,
     ObsPageComponent,
