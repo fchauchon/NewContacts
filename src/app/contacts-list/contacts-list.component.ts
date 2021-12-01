@@ -20,23 +20,18 @@ export class ContactsListComponent implements OnInit, OnDestroy {
         private communicationService: CommunicationService) { }
 
     ngOnInit(): void {
-        this.isHidden = false;
-        this.subscription = this.dataService.getContacts().subscribe(
+        this.communicationService.onRefresh().subscribe(
+            () => {
+                this.isHidden = false;
+                this.subscription = this.dataService.getContacts().subscribe(
 
-            (data: Array<Person>) =>
-                {
-                    this.persons = data;
-                },
-            (err) => {},
-            () => this.isHidden = true
-        );
-
-        this.communicationService.onMessage().subscribe(
-
-            (data: Person) =>
-                {
-                    console.log(data)
-                }
+                    (data: Array<Person>) =>
+                    {
+                        this.isHidden = true;
+                        this.persons = data;
+                    }
+                );
+            }
         );
     }
 
@@ -44,14 +39,4 @@ export class ContactsListComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    myDelete(id: number): void {
-        this.dataService.deleteContact(id);
-        const index = this.persons.findIndex( (element) => element.id === id);
-        this.persons.splice(index, 1);
-    }
-
-    myAdd(person: Person): void {
-        this.dataService.addContact(person);
-        this.persons.push(person);
-    }
 }

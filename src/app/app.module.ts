@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +27,8 @@ import { ObsPageComponent } from './obs-page/obs-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
 import { AboutComponent } from './about/about.component';
+import { SearchComponent } from './search/search.component';
+import { TwoPasswordsComponent } from './two-passwords/two-passwords.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,9 @@ import { AboutComponent } from './about/about.component';
     ProducerComponent,
     ObsPageComponent,
     TwoWaysPageComponent,
-    AboutComponent
+    AboutComponent,
+    SearchComponent,
+    TwoPasswordsComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +57,11 @@ import { AboutComponent } from './about/about.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }

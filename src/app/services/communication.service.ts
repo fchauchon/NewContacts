@@ -1,30 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import { Person } from '../classes/person';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicationService {
 
-    subject = new Subject<string>();
-    messageQueue = new Subject<Person>();
+    protected messageQueue = new Subject<string>();
+    protected errorQueue = new Subject<string>();
+    protected refreshQueue = new BehaviorSubject<boolean>(true);
 
     constructor() { }
   
-    pushData(data: string) {
-        this.subject.next(data);
+    pushMessage(message: string) {
+        this.messageQueue.next(message);
     }
 
-    onData(): Observable<string> {
-        return this.subject;
+    onMessage(): Observable<string> {
+        return this.messageQueue.asObservable();
     }
 
-    pushMessage(data: Person) {
-        this.messageQueue.next(data);
+    pushError(error: string) {
+        this.errorQueue.next(error);
     }
 
-    onMessage(): Observable<Person> {
-        return this.messageQueue;
+    onError(): Observable<string> {
+        return this.errorQueue.asObservable();
     }
+
+    pushRefresh(refresh: boolean) {
+        this.refreshQueue.next(refresh);
+    }
+
+    onRefresh(): Observable<boolean> {
+        return this.refreshQueue.asObservable();
+    }
+
 }

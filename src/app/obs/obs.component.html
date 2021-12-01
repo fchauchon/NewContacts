@@ -1,16 +1,19 @@
 <div class="component bg">
     <h3>Démonstration des observables</h3>
-    <textarea [ngClass]="isClassBg1 ? 'filler bg1' : ' filler bg2'" [hidden]="isLogHidden">{{ logText }}</textarea><br/>
-    <div class="filler" *ngIf="isLogHidden"></div>
+    <textarea [ngClass]="isClassBg1 ? 'bg1' : 'bg2'" cols=120 rows="15" [hidden]="isLogHidden">{{ logText }}</textarea><br/>
     <button mat-flat-button color="accent" (click)="toggleLog()">{{ isLogHidden ? "Montrer" : "Cacher" }}</button>
     <button mat-flat-button color="accent" (click)="toggleBgColor()">Changer bgColor</button><br/>
     <button mat-flat-button color="accent" (click)="simple()">Simple</button>
     <button mat-flat-button color="accent" (click)="map()">Map</button>
-    <button mat-flat-button color="accent" (click)="test()">Test</button>
     <button mat-flat-button color="accent" (click)="mapAndFilter()">Map & filter</button>
-    <button mat-flat-button color="accent" (click)="distinct()">Distinct</button>
-    <button mat-flat-button color="accent" (click)="takeUntil()">takeUntil</button>
-    <button mat-flat-button color="accent" (click)="reduce()">reduce</button><br/>
+    <button mat-flat-button color="accent" (click)="distinct()">Distinct</button><br/>
+    <button mat-flat-button color="accent" (click)="mergeMap()">MergeMap</button>
+    <button mat-flat-button color="accent" (click)="switchMap()">SwitchMap</button>
+    <button mat-flat-button color="accent" (click)="behaviorSubject()">BehaviorSubject</button>
+    <button mat-flat-button color="accent" (click)="replaySubject()">ReplaySubject</button>
+    <button mat-flat-button color="accent" (click)="asyncSubject()">AsyncSubject</button><br/>
+    <button mat-flat-button color="accent" (click)="takeUntil()">TakeUntil</button>
+    <button mat-flat-button color="accent" (click)="reduce()">Reduce</button><br/>
     <br/>
     Temps écoulé depuis l'affichage de la page : {{ timer$ | async }} secondes
 </div>

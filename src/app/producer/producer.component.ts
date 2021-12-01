@@ -15,11 +15,11 @@ export class ProducerComponent implements OnInit {
     ngOnInit(): void { }
 
     sendData(): void {
-        this.communicationService.pushData(this.inputValue);
+        this.communicationService.pushMessage(this.inputValue);
     }
 
     sendDataAndClear(): void {
-        this.communicationService.pushData(this.inputValue);
+        this.communicationService.pushMessage(this.inputValue);
         this.inputValue = '';
     }
 }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Subscription } from 'rxjs';
 import { Person } from '../classes/person';
 import { CommunicationService } from '../services/communication.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-form',
@@ -13,7 +14,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
     customerForm: FormGroup;
 
-    constructor(private communicationService: CommunicationService) { }
+    constructor(
+        private dataService: DataService,
+        private communicationService: CommunicationService
+    ) { }
 
     ngOnInit(): void {
 
@@ -43,7 +47,8 @@ export class FormComponent implements OnInit, OnDestroy {
             this.customerForm.get('email').value,
             "Femme"
         );
-        this.communicationService.pushMessage(person);
+        this.dataService.addContact(person);
+        this.communicationService.pushRefresh(true);
     }
 
     ngOnDestroy() {

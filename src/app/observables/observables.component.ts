@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, interval, of, range, ReplaySubject } from 'rxjs';
-import { delay, distinct, distinctUntilChanged, filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import { AsyncSubject, BehaviorSubject, interval, Observable, of, range, ReplaySubject } from 'rxjs';
+import { distinct, distinctUntilChanged, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-observables',
@@ -11,7 +11,7 @@ import { delay, distinct, distinctUntilChanged, filter, map, mergeMap, switchMap
 export class ObservablesComponent implements OnInit {
 
     log: string = '';
-    timer;
+    timer: Observable<number>;
 
     constructor(private http: HttpClient) { }
 
@@ -73,28 +73,30 @@ export class ObservablesComponent implements OnInit {
         const someIds = of(1, 2);
         someIds.pipe(
             switchMap( (data) => this.http.get('http://localhost:3000/actors/' + data) )
-            ).subscribe(
-                (data) => this.writeLog('switchMap', JSON.stringify(data))
-                )
+        ).subscribe(
+            (data) => this.writeLog('switchMap', JSON.stringify(data))
+        )
     }
 
     behaviorSubject() {
         this.clearLog();
-        const subject = new BehaviorSubject(1);
+        const subject = new BehaviorSubject("First value");
 
         subject.subscribe(
             (data) => this.writeLog('subject1:', data)
         )
+
         subject.subscribe(
             (data) => this.writeLog('subject2:', data)
         )
 
-        subject.next(2);
+        subject.next("Second value");
 
         subject.subscribe(
             (data) => this.writeLog('subject3:', data)
         )
-        this.writeLog('' + subject.getValue());
+
+        subject.complete();
     }
 
     replaySubject() {
@@ -105,15 +107,16 @@ export class ObservablesComponent implements OnInit {
             (data) => this.writeLog('subject1:', data)
         )
         
-        subject.next(1);
-        subject.next(2);
-        subject.next(3);
+        subject.next("First value");
+        subject.next("Second value");
+        subject.next("Third value");
 
         subject.subscribe(
             (data) => this.writeLog('subject2:', data)
         )
 
-        subject.next(4);    
+        subject.next("Fourth value");    
+        subject.complete();
     }
 
     asyncSubject() {
@@ -124,15 +127,15 @@ export class ObservablesComponent implements OnInit {
             (data) => this.writeLog('subject1:', data)
         )
         
-        subject.next(1);
-        subject.next(2);
-        subject.next(3);
+        subject.next("First value");
+        subject.next("Second value");
+        subject.next("Third value");
 
         subject.subscribe(
             (data) => this.writeLog('subject2:', data)
         )
 
-        subject.next(4);
+        subject.next("Fourth value");
         subject.complete();
     }
 
@@ -143,4 +146,5 @@ export class ObservablesComponent implements OnInit {
     writeLog(message: string, extra: any = null) {
         this.log += message + (extra != null ? ' ' + extra : '') + '\n';
     }
+
 }

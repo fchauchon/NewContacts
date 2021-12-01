@@ -1,0 +1,12 @@
+<div class="bgGeneral">
+    <h3>Rechercher une personne</h3>
+    <form [formGroup]="searchForm">
+        <mat-form-field>
+            <mat-label>Entrer le texte à rechercher:</mat-label>
+            <input matInput formControlName="search">
+        </mat-form-field>
+    </form>
+    <ng-container *ngFor="let prop of propositions">
+        {{ prop }}<br/>
+    </ng-container>
+</div>
