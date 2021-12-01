@@ -51,11 +51,12 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     map() {
         this.clearLog();
+
         const simple$ = range(1, 10).pipe(
-            map( data => data * 10),
+            map( (data: number) => "Nombre " + data),
         );
         simple$.subscribe(
-            (data: number) => this.logText += data + "\n"
+            (data: string) => this.logText += data + "\n"
         );
     }
 

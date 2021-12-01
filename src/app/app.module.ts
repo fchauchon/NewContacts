@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactPageComponent } from './contact-page/contact.page.component';
 import { AboutPageComponent } from './about-page/about.page.component';
-import { FormPageComponent } from './form/form.page.component';
+import { FormComponent } from './form/form.component';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactComponent } from './contact/contact.component';
 import { TwoWaysComponent } from './two-ways/two-ways.component';
@@ -32,7 +33,7 @@ import { AboutComponent } from './about/about.component';
     FooterComponent,
     ContactPageComponent,
     AboutPageComponent,
-    FormPageComponent,
+    FormComponent,
     ContactsListComponent,
     ContactComponent,
     TwoWaysComponent,
@@ -51,7 +52,8 @@ import { AboutComponent } from './about/about.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }

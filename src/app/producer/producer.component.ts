@@ -18,4 +18,8 @@ export class ProducerComponent implements OnInit {
         this.communicationService.pushData(this.inputValue);
     }
 
+    sendDataAndClear(): void {
+        this.communicationService.pushData(this.inputValue);
+        this.inputValue = '';
+    }
 }

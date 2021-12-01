@@ -2,18 +2,18 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Subscription } from 'rxjs';
 import { Person } from '../classes/person';
+import { CommunicationService } from '../services/communication.service';
 
 @Component({
-  selector: 'app-form-page',
-  templateUrl: './form.page.component.html',
-  styleUrls: ['./form.page.component.css']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css']
 })
-export class FormPageComponent implements OnInit, OnDestroy {
+export class FormComponent implements OnInit, OnDestroy {
 
-    @Output() addRequest = new EventEmitter<Person>();
     customerForm: FormGroup;
 
-    constructor() { }
+    constructor(private communicationService: CommunicationService) { }
 
     ngOnInit(): void {
 
@@ -43,7 +43,7 @@ export class FormPageComponent implements OnInit, OnDestroy {
             this.customerForm.get('email').value,
             "Femme"
         );
-        this.addRequest.emit(person);
+        this.communicationService.pushMessage(person);
     }
 
     ngOnDestroy() {

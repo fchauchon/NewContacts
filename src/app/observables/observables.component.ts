@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AsyncSubject, BehaviorSubject, interval, of, range, ReplaySubject } from 'rxjs';
-import { distinct, distinctUntilChanged, filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import { delay, distinct, distinctUntilChanged, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-observables',
@@ -60,7 +60,7 @@ export class ObservablesComponent implements OnInit {
 
     mergeMap() {
         this.clearLog();
-        const someIds=of(1, 2, 3, 4, 5);
+        const someIds = of(1, 2, 3, 4, 5);
         someIds.pipe(
             mergeMap( (data) => this.http.get('http://localhost:3000/actors/' + data) )
         ).subscribe(
@@ -70,7 +70,7 @@ export class ObservablesComponent implements OnInit {
 
     switchMap() {
         this.clearLog();
-        const someIds=of(1, 2, 3, 4, 5);
+        const someIds = of(1, 2);
         someIds.pipe(
             switchMap( (data) => this.http.get('http://localhost:3000/actors/' + data) )
             ).subscribe(
