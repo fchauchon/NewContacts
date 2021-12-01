@@ -26,6 +26,7 @@ export class ContactComponent implements OnInit, OnChanges, AfterViewInit, OnDes
     ngOnChanges(): void {
 
     }
+    
     ngAfterViewInit(): void {
 
     }
@@ -34,9 +35,9 @@ export class ContactComponent implements OnInit, OnChanges, AfterViewInit, OnDes
     }
 
     delete(): void {
-
-        this.dataService.deleteContact(this.person.id);
-        this.communicationService.pushRefresh(true);
+        this.dataService.deleteContact(this.person.id).subscribe(
+            () => this.communicationService.pushRefresh(true)
+        );
     }
 
 }

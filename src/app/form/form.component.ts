@@ -47,8 +47,9 @@ export class FormComponent implements OnInit, OnDestroy {
             this.customerForm.get('email').value,
             "Femme"
         );
-        this.dataService.addContact(person);
-        this.communicationService.pushRefresh(true);
+        this.dataService.addContact(person).subscribe(
+            () => this.communicationService.pushRefresh(true)
+        );
     }
 
     ngOnDestroy() {

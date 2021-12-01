@@ -22,6 +22,7 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.communicationService.onRefresh().subscribe(
             () => {
+                this.persons = null;
                 this.isHidden = false;
                 this.subscription = this.dataService.getContacts().subscribe(
 

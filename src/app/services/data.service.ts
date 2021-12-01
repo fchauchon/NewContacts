@@ -20,6 +20,15 @@ export class DataService {
     ) { }
 
     getContacts(): Observable<Array<Person>> {
+        return this.http.get<Array<Person>>(this.baseUrl + 'actors').pipe(
+            delay(2000),
+            catchError( () => {
+                this.communicationService.pushError('Le json-server est absent !')
+                return of(null);
+            })
+        );
+    }
+    getContactsCache(): Observable<Array<Person>> {
         if (this.cache === null) {
             return this.http.get<Array<Person>>(this.baseUrl + 'actors').pipe(
                 delay(2000),
@@ -35,19 +44,7 @@ export class DataService {
         }
     }
 
-    getContactsFiltered(): Observable<Array<Person>> {
-        return this.http.get(this.baseUrl + 'actors')
-        .pipe(
-            map( (array: Array<object>) => {
-                return array.map( (obj: object) => {
-                    return new Person(obj['id'], obj['firstName'], obj['lastName'], obj['email'], obj['gender'])
-                })
-                .filter( (person: Person) => person.gender === 'Femme')
-            })
-        );
-    }
-
-    getContactsFiltered2(): Observable<Array<Person>> {
+    getContactsFemme(): Observable<Array<Person>> {
         return this.http.get(this.baseUrl + 'actors')
         .pipe(
             map( (array: Array<object>) => 
@@ -58,20 +55,6 @@ export class DataService {
         )
     }
 
-    getContactsFemme(): Observable<Array<Person>> {
-        return this.http.get(this.baseUrl + 'actors').pipe(
-            map(
-                (data: Array<object>) => 
-                    // data
-                    //     .map( obj => new Person(obj['id'], obj['firstName'], obj['lastName'], obj['email'], obj['gender'] ))
-                    //     .filter((person: Person)=>person.gender === "Femme" )
-                    data
-                        .filter( obj => obj['gender'] === "Femme" )
-                        .map( obj => new Person(obj['id'], obj['firstName'], obj['lastName'], obj['email'], obj['gender']) )
-            )
-        );
-    }
-
     searchContacts(query: string): Observable<Array<string>> {
         return this.http.get(this.baseUrl + 'actors?lastName_like=' + query).pipe(
             map(
@@ -80,12 +63,12 @@ export class DataService {
         );
     }
 
-    addContact(person: Person): void {
-        this.http.post(this.baseUrl + 'actors/', person).subscribe();
+    addContact(person: Person): Observable<any> {
+        return this.http.post(this.baseUrl + 'actors/', person);
     }
 
-    deleteContact(id: number): void {
-        this.http.delete(this.baseUrl + 'actors/' + id).subscribe();
+    deleteContact(id: number): Observable<any> {
+        return this.http.delete(this.baseUrl + 'actors/' + id);
     }
 
     getToken(): string {

@@ -4,7 +4,7 @@
     <ul>
         <ng-container *ngIf="persons && persons.length > 0">
             <div *ngFor="let person of persons">
-                <app-contact (deleteRequest)="myDelete($event)" [person]="person"></app-contact>
+                <app-contact [person]="person"></app-contact>
             </div>
         </ng-container>
         <ng-container *ngIf="persons && persons.length <= 0">
