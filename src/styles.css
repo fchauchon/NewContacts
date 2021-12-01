@@ -11,3 +11,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .component {
     padding: 5px;
 }
+
+.min {
+    min-height: 450px;
+}
