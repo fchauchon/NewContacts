@@ -1,6 +1,7 @@
 <div class="component bg">
     <h3>Démonstration des observables</h3>
     <textarea [ngClass]="isClassBg1 ? 'bg1' : 'bg2'" cols=120 rows="15" [hidden]="isLogHidden">{{ logText }}</textarea><br/>
+    <div class="filler" [hidden]="! isLogHidden"></div>
     <button mat-flat-button color="accent" (click)="toggleLog()">{{ isLogHidden ? "Montrer" : "Cacher" }}</button>
     <button mat-flat-button color="accent" (click)="toggleBgColor()">Changer bgColor</button><br/>
     <button mat-flat-button color="accent" (click)="simple()">Simple</button>
