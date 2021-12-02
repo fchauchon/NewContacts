@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, delay, filter, map, tap } from 'rxjs/operators';
+import { catchError, delay, map, tap } from 'rxjs/operators';
 import { Person } from '../classes/person';
 import { environment } from '../../environments/environment'
 import { Observable, of } from 'rxjs';
@@ -29,19 +29,18 @@ export class DataService {
         );
     }
     getContactsCache(): Observable<Array<Person>> {
-        if (this.cache === null) {
-            return this.http.get<Array<Person>>(this.baseUrl + 'actors').pipe(
-                delay(2000),
-                tap( (data : Array<Person>) => this.cache = data ),
-                catchError( () => {
-                    this.communicationService.pushError('Le json-server est absent !')
-                    return of(null);
-                })
-            );
-        } else {
+        if (this.cache !== null) {
             console.log('From cache !!!');
             return of(this.cache);
         }
+        return this.http.get<Array<Person>>(this.baseUrl + 'actors').pipe(
+            delay(2000),
+            tap( (data : Array<Person>) => this.cache = data ),
+            catchError( () => {
+                this.communicationService.pushError('Le json-server est absent !')
+                return of(null);
+            })
+        );  
     }
 
     getContactsFemme(): Observable<Array<Person>> {
@@ -51,7 +50,11 @@ export class DataService {
                 array
                     .filter( (obj: object) => obj['gender'] === 'Femme' )
                     .map( (obj: object) => new Person(obj['id'], obj['firstName'], obj['lastName'], obj['email'], obj['gender']) )
-            )
+            ),
+            catchError( () => {
+                this.communicationService.pushError('Le json-server est absent !')
+                return of(null);
+            })
         )
     }
 
@@ -59,16 +62,30 @@ export class DataService {
         return this.http.get(this.baseUrl + 'actors?lastName_like=' + query).pipe(
             map(
                 (data: Array<object>) => data.map( obj => obj['firstName'] + ' ' + obj['lastName'] )
-            )
+            ),
+            catchError( () => {
+                this.communicationService.pushError('Le json-server est absent !')
+                return of(null);
+            })
         );
     }
 
     addContact(person: Person): Observable<any> {
-        return this.http.post(this.baseUrl + 'actors/', person);
+        return this.http.post(this.baseUrl + 'actors/', person).pipe(
+            catchError( () => {
+                this.communicationService.pushError('Le json-server est absent !')
+                return of(null);
+            })
+        );
     }
 
     deleteContact(id: number): Observable<any> {
-        return this.http.delete(this.baseUrl + 'actors/' + id);
+        return this.http.delete(this.baseUrl + 'actors/' + id).pipe(
+            catchError( () => {
+                this.communicationService.pushError('Le json-server est absent !')
+                return of(null);
+            })
+        );
     }
 
     getToken(): string {
