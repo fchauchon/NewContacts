@@ -28,6 +28,7 @@ export class DataService {
             })
         );
     }
+
     getContactsCache(): Observable<Array<Person>> {
         if (this.cache !== null) {
             console.log('From cache !!!');
