@@ -5,9 +5,13 @@ import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
 import { ObsPageComponent } from './obs-page/obs-page.component';
 import { PasswordsPageComponent } from './passwords-page/passwords-page.component';
 import { AboutPageComponent } from './about-page/about.page.component';
+import { ContactDetailPageComponent } from './contact-detail-page/contact-detail-page.component';
+import { FormPageComponent } from './form-page/form-page.component';
 
 const routes: Routes = [
     { path: '', component: ContactPageComponent },
+    { path: 'contact/:id', component: ContactDetailPageComponent },
+    { path: 'add', component: FormPageComponent },
     { path: 'twoWays', component: TwoWaysPageComponent },
     { path: 'observables', component: ObsPageComponent },
     { path: 'obs', component: ObsPageComponent },

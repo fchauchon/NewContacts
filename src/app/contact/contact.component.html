@@ -1,5 +1,5 @@
 <li class="bg">
     {{ person.id }} - {{ person.firstName }} {{ person.lastName | uppercase }}
-    <button mat-raised-button color="basic" (click)="delete()">Supprimer</button>
+    <button mat-raised-button color="basic" [routerLink]="['/contact', person.id]">Voir</button>
     <ng-content></ng-content>
 </li>

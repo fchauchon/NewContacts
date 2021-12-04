@@ -59,6 +59,16 @@ export class DataService {
         )
     }
 
+    getContact(id: number): Observable<Person> {
+        return this.http.get<Person>(this.baseUrl + 'actors/' + id)
+        .pipe(
+            catchError( () => {
+                this.communicationService.pushError('Le json-server est absent !')
+                return of(null);
+            })
+        )
+    }
+
     searchContacts(query: string): Observable<Array<string>> {
         return this.http.get(this.baseUrl + 'actors?lastName_like=' + query).pipe(
             map(

@@ -30,6 +30,9 @@ import { ProducerComponent } from './producer/producer.component';
 import { TwoWaysComponent } from './two-ways/two-ways.component';
 import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
 import { SearchComponent } from './search/search.component';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
+import { ContactDetailPageComponent } from './contact-detail-page/contact-detail-page.component';
+import { FormPageComponent } from './form-page/form-page.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { SearchComponent } from './search/search.component';
     PasswordsPageComponent,
     ProducerComponent,
     SearchComponent,
+    ContactDetailComponent,
+    ContactDetailPageComponent,
+    FormPageComponent,
   ],
   imports: [
     BrowserModule,

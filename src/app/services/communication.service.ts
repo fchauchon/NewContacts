@@ -29,12 +29,4 @@ export class CommunicationService {
         return this.errorQueue.asObservable();
     }
 
-    pushRefresh(refresh: boolean) {
-        this.refreshQueue.next(refresh);
-    }
-
-    onRefresh(): Observable<boolean> {
-        return this.refreshQueue.asObservable();
-    }
-
 }

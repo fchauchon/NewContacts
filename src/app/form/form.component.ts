@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
 import { Person } from '../classes/person';
 import { CommunicationService } from '../services/communication.service';
@@ -16,7 +17,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
     constructor(
         private dataService: DataService,
-        private communicationService: CommunicationService
+        private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -48,7 +49,7 @@ export class FormComponent implements OnInit, OnDestroy {
             "Femme"
         );
         this.dataService.addContact(person).subscribe(
-            () => this.communicationService.pushRefresh(true)
+            () => this.router.navigate([''])
         );
     }
 

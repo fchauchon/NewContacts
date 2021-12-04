@@ -1,0 +1,11 @@
+<div class="composant">
+    <ng-container *ngIf="person !== null">
+        id: {{ person.id }}<br/>
+        Prénom: {{ person.firstName }}<br/>
+        Nom: {{ person.lastName }}<br/>
+        Email: {{ person.email }}<br/>
+        Genre: {{ person.gender }}<br/>
+    </ng-container>
+    <button mat-raised-button color="basic" (click)="delete()">Delete</button>
+    <button mat-raised-button color="basic" [routerLink]="['']">Retour</button>
+</div>
