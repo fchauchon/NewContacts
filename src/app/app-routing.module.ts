@@ -7,6 +7,7 @@ import { PasswordsPageComponent } from './passwords-page/passwords-page.componen
 import { AboutPageComponent } from './about-page/about.page.component';
 import { ContactDetailPageComponent } from './contact-detail-page/contact-detail-page.component';
 import { FormPageComponent } from './form-page/form-page.component';
+import { IsAuthorisedService } from './is-authorised.service';
 
 const routes: Routes = [
     { path: '', component: ContactPageComponent },
@@ -16,7 +17,7 @@ const routes: Routes = [
     { path: 'observables', component: ObsPageComponent },
     { path: 'obs', component: ObsPageComponent },
     { path: 'passwords', component: PasswordsPageComponent },
-    { path: 'about', component: AboutPageComponent }
+    { path: 'about', component: AboutPageComponent, canActivate: [IsAuthorisedService] }
 ];
 
 @NgModule({
