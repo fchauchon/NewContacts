@@ -17,6 +17,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
     constructor(
         private dataService: DataService,
+        private communicationService: CommunicationService,
         private router: Router
     ) { }
 
@@ -49,7 +50,10 @@ export class FormComponent implements OnInit, OnDestroy {
             "Femme"
         );
         this.dataService.addContact(person).subscribe(
-            () => this.router.navigate([''])
+            () => {
+                this.communicationService.pushConfirmation('Element ajouté !');
+                this.router.navigate(['']);
+            }
         );
     }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Message } from '../classes/message';
 import { CommunicationService } from '../services/communication.service';
 
 @Component({
@@ -18,8 +19,14 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit(): void {
         this.myLogo = 'assets/logo.svg';
-        this.communicationService.onError().subscribe(
-            error => this.snackBar.open(error, 'Compris', { duration: 10000, panelClass: ['red-snackbar', 'green-snackbar'] })
+        this.communicationService.onNotification().subscribe(
+            (notification: Message) => {
+                this.snackBar.open(
+                    notification.message, 'Compris',
+                    { duration: notification.type === 'ERROR' ? 10000 : 2000, panelClass: ['red-snackbar', 'green-snackbar'],
+                    verticalPosition: notification.type === 'ERROR' ? 'bottom' : 'top' }
+                );
+            }
         );
     }
 

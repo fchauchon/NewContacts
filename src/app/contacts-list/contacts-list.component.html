@@ -3,7 +3,7 @@
     <mat-spinner diameter="50" [hidden]="isHidden" ></mat-spinner>
     <ul>
         <ng-container *ngIf="persons && persons.length > 0">
-            <div *ngFor="let person of persons">
+            <div *ngFor="let person of persons; trackBy: personById">
                 <app-contact [person]="person"></app-contact>
             </div>
         </ng-container>

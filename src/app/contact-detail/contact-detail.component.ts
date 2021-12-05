@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { Person } from '../classes/person';
+import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class ContactDetailComponent implements OnInit {
   
   constructor(
     private dataService: DataService,
+    private commuicationService: CommunicationService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
@@ -29,7 +31,10 @@ export class ContactDetailComponent implements OnInit {
 
   delete(): void {
       this.dataService.deleteContact(this.person.id).subscribe(
-        () => this.router.navigate([''])
+        () => {
+          this.commuicationService.pushConfirmation('Element effacé !');
+          this.router.navigate(['']);
+        }
       );
   }
 

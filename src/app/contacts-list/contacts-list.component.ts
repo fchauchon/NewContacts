@@ -26,6 +26,10 @@ export class ContactsListComponent implements OnInit, OnDestroy {
             }
         );
     }
+    
+    personById(index, person: Person) {
+        return person.id;
+    }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
