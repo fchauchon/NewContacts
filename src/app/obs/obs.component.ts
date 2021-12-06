@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, interval, Observable, of, range, ReplaySubject, Subject, Subscription, timer } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, forkJoin, interval, Observable, of, range, ReplaySubject, Subject, Subscription, timer } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, reduce, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
@@ -85,6 +85,25 @@ export class ObsComponent implements OnInit, OnDestroy {
         )
     }
 
+    forkJoin(): void {
+        const actor$ = this.http.get<Array<any>>('http://localhost:3000/actors/');
+        const series$ = this.http.get<Array<any>>('http://localhost:3000/series');
+        // Récupère la dernière valeur de chacun des deux observables
+        forkJoin([actor$, series$]).
+            pipe(
+                map( ([actors, series]) => 
+                    actors.map( (actor) => {
+
+                        actor.serie = series.find( (item) => actor.serieId === item.id );
+                        delete actor.serieId;
+                        return actor;
+                    })
+                )
+            ).subscribe(
+                (data: any) => this.logText += JSON.stringify(data) + '\n'
+            );
+    }
+
     mergeMap() {
         this.clearLog();
         const someIds = of(1);
@@ -108,8 +127,7 @@ export class ObsComponent implements OnInit, OnDestroy {
             switchMap( (data) => this.http.get('http://localhost:3000/actors/' + data) )
         ).subscribe(
             (data) => this.logText += 'switchMap: ' + JSON.stringify(data) + '\n'
-        );
-        
+        );    
     }
 
     behaviorSubject() {
