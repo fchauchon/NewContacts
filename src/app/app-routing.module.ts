@@ -11,8 +11,9 @@ import { IsAuthorisedService } from './is-authorised.service';
 
 const routes: Routes = [
     { path: '', component: ContactPageComponent },
-    { path: 'contact/:id', component: ContactDetailPageComponent },
-    { path: 'add', component: FormPageComponent },
+    { path: 'contacts', redirectTo: '' },
+    { path: 'contacts/add', component: FormPageComponent },
+    { path: 'contacts/:id', component: ContactDetailPageComponent },
     { path: 'twoWays', component: TwoWaysPageComponent },
     { path: 'observables', component: ObsPageComponent },
     { path: 'obs', component: ObsPageComponent },
