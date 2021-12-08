@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, interval, Observable, of, range, ReplaySubject, Subject, Subscription, timer } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, reduce, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { AsyncSubject, BehaviorSubject, concat, interval, merge, Observable, of, range, ReplaySubject, scheduled, Subject, Subscription, timer } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeAll, mergeMap, reduce, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
 
@@ -60,6 +60,20 @@ export class ObsComponent implements OnInit, OnDestroy {
         );
         simple$.subscribe(
             (data: string) => this.logText += data + "\n"
+        );
+    }
+
+    merge() {
+        this.clearLog();
+
+        const simple$ = timer(0, 1000).pipe(
+            map( data => 'Toutes les secondes: ' + data )
+        );
+        const otherSimple$ = timer(0, 5000).pipe(
+            map( data => 'Toutes les 5 secondes: ' + data )
+        );
+        merge(simple$, otherSimple$).subscribe(
+            (data) => this.logText += data + "\n"
         );
     }
 
