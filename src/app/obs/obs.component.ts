@@ -71,8 +71,11 @@ export class ObsComponent implements OnInit, OnDestroy {
         const otherSimple$ = timer(0, 5000).pipe(
             map( data => 'Toutes les 5 secondes: ' + data )
         );
-        merge(simple$, otherSimple$).subscribe(
-            (data) => this.logText += data + "\n"
+        const theEnd$ = interval(15000);
+        merge(simple$, otherSimple$).pipe(
+            takeUntil(theEnd$)
+        ).subscribe(
+            (data: string) => this.logText += data + "\n"
         );
     }
 
@@ -207,10 +210,10 @@ export class ObsComponent implements OnInit, OnDestroy {
     takeUntil() {
         this.clearLog();
         const myObs$ = timer(0, 1000);
-        const myEnd$ = interval(10000);
+        const theEnd$ = interval(10000);
 
         myObs$.pipe(
-            takeUntil(myEnd$)
+            takeUntil(theEnd$)
         ).subscribe(
             data => this.logText += data + "\n",
             () => {},
