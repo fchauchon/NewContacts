@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, forkJoin, interval, merge, Observable, of, range, ReplaySubject, Subscription, timer } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, forkJoin, interval, merge, Observable, of, range, ReplaySubject, Subscription, timer, zip } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, reduce, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 
@@ -123,25 +123,38 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     mergeMap() {
         this.clearLog();
-        const someIds = of(1);
+        // Permet d'émettre 5 ids avec 3 secondes d'intervale
+        const someIds$ = zip(
+            of(1, 2, 3, 4, 5),
+            timer(0, 3000)
+        );
         let myObj = null;
+        let resultats = [];
         
-        someIds.pipe(
-            mergeMap( (data) => this.http.get('http://localhost:3000/actors/' + data) ),
-            tap( (data) => myObj = {...data} ),
+        someIds$.pipe(
+            mergeMap( ([id, time]) => this.http.get('http://localhost:3000/actors/' + id) ),
+            tap( (data) => {
+                myObj = data;
+            }),
             mergeMap( (data) => this.http.get('http://localhost:3000/series/' + data['serieId'])),
-            tap((data) => {
-                myObj.serie = {...data};
+            tap( (data) => {
+                myObj.serie = data;
+                delete myObj.serieId;
+                resultats.push(myObj);
                 this.logText += JSON.stringify(myObj) + '\n';
             })
-        ).subscribe();
+        ).subscribe(
+            () => { },
+            () => { },
+            () => console.log(resultats)
+        );
     }
 
     switchMap() {
         this.clearLog();
-        const someIds = of(1, 2, 3, 4, 5);
+        const someIds$ = of(1, 2, 3, 4, 5);
 
-        someIds.pipe(
+        someIds$.pipe(
             switchMap( (data) => this.http.get('http://localhost:3000/actors/' + data) )
         ).subscribe(
             (data) => this.logText += 'switchMap: ' + JSON.stringify(data) + '\n'
@@ -150,63 +163,63 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     behaviorSubject() {
         this.clearLog();
-        const subject = new BehaviorSubject("First value");
+        const subject$ = new BehaviorSubject("First value");
 
-        subject.subscribe(
+        subject$.subscribe(
             (data) => this.logText += 'subject1: ' + data + '\n'
         );
 
-        subject.subscribe(
+        subject$.subscribe(
             (data) => this.logText += 'subject2: ' + data + '\n'
         );
 
-        subject.next("Second value");
+        subject$.next("Second value");
 
-        subject.subscribe(
+        subject$.subscribe(
             (data) => this.logText += 'subject3: ' + data + '\n'
         );
 
-        subject.complete();
+        subject$.complete();
     }
 
     replaySubject() {
         this.clearLog();
-        const subject = new ReplaySubject(2);
+        const subject$ = new ReplaySubject(2);
 
-        subject.subscribe(
+        subject$.subscribe(
             (data) => this.logText += 'subject1: ' + data + '\n'
         );
         
-        subject.next("First value");
-        subject.next("Second value");
-        subject.next("Third value");
+        subject$.next("First value");
+        subject$.next("Second value");
+        subject$.next("Third value");
 
-        subject.subscribe(
+        subject$.subscribe(
             (data) => this.logText += 'subject2: ' + data + '\n'
         );
 
-        subject.next("Fourth value");  
-        subject.complete();
+        subject$.next("Fourth value");  
+        subject$.complete();
     }
 
     asyncSubject() {
         this.clearLog();
-        const subject = new AsyncSubject();
+        const subject$ = new AsyncSubject();
 
-        subject.subscribe(
+        subject$.subscribe(
             (data) => this.logText += 'subject1: ' + data + '\n'
         );
         
-        subject.next("First value");
-        subject.next("Second value");
-        subject.next("Third value");
+        subject$.next("First value");
+        subject$.next("Second value");
+        subject$.next("Third value");
 
-        subject.subscribe(
+        subject$.subscribe(
             (data) => this.logText += 'subject2: ' + data + '\n'
         );
 
-        subject.next("Fourth value");
-        subject.complete();
+        subject$.next("Fourth value");
+        subject$.complete();
     }
 
     takeUntil() {
@@ -217,9 +230,7 @@ export class ObsComponent implements OnInit, OnDestroy {
         myObs$.pipe(
             takeUntil(theEnd$)
         ).subscribe(
-            data => this.logText += data + "\n",
-            () => {},
-            () => this.logText += "Fin\n"
+            data => this.logText += data + "\n"
         );
     }
 
