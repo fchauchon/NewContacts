@@ -46,6 +46,7 @@ export class ObsComponent implements OnInit, OnDestroy {
     simple() {
         this.clearLog();
         const simple$ = range(1, 10);
+
         simple$.subscribe(
             (data: number) => this.logText += data + "\n"
         );
@@ -53,10 +54,10 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     map() {
         this.clearLog();
-
         const simple$ = range(1, 10).pipe(
             map( (data: number) => "Nombre " + data),
         );
+
         simple$.subscribe(
             (data: string) => this.logText += data + "\n"
         );
@@ -64,7 +65,6 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     merge() {
         this.clearLog();
-
         const simple$ = timer(0, 1000).pipe(
             map( data => 'Toutes les secondes: ' + data )
         );
@@ -72,6 +72,7 @@ export class ObsComponent implements OnInit, OnDestroy {
             map( data => 'Toutes les 5 secondes: ' + data )
         );
         const theEnd$ = interval(15000);
+
         merge(simple$, otherSimple$).pipe(
             takeUntil(theEnd$)
         ).subscribe(
@@ -104,20 +105,20 @@ export class ObsComponent implements OnInit, OnDestroy {
     forkJoin(): void {
         const actor$ = this.http.get<Array<any>>('http://localhost:3000/actors/');
         const series$ = this.http.get<Array<any>>('http://localhost:3000/series');
-        // Récupère la dernière valeur de chacun des deux observables
-        forkJoin([actor$, series$]).
-            pipe(
-                map( ([actors, series]) => 
-                    actors.map( (actor) => {
 
-                        actor.serie = series.find( (item) => actor.serieId === item.id );
-                        delete actor.serieId;
-                        return actor;
-                    })
-                )
-            ).subscribe(
-                (data: any) => this.logText += JSON.stringify(data) + '\n'
-            );
+        // Récupère la dernière valeur de chacun des deux observables
+        forkJoin([actor$, series$]).pipe(
+            map( ([actors, series]) => 
+                actors.map( (actor) => {
+
+                    actor.serie = series.find( (item) => actor.serieId === item.id );
+                    delete actor.serieId;
+                    return actor;
+                })
+            )
+        ).subscribe(
+            (data: any) => this.logText += JSON.stringify(data) + '\n'
+        );
     }
 
     mergeMap() {
@@ -139,6 +140,7 @@ export class ObsComponent implements OnInit, OnDestroy {
     switchMap() {
         this.clearLog();
         const someIds = of(1, 2, 3, 4, 5);
+
         someIds.pipe(
             switchMap( (data) => this.http.get('http://localhost:3000/actors/' + data) )
         ).subscribe(
