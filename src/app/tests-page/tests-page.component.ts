@@ -17,7 +17,7 @@ export class TestsPageComponent implements OnInit {
             (data) => console.log('fred', data)
         );
 
-        this.httpClient.get('/foot/v2/matches').subscribe(
+        this.httpClient.get('/api/v2/matches').subscribe(
             (data) => console.log(data)
         );
     }
