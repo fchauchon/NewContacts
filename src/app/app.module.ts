@@ -33,6 +33,8 @@ import { SearchComponent } from './search/search.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { ContactDetailPageComponent } from './contact-detail-page/contact-detail-page.component';
 import { FormPageComponent } from './form-page/form-page.component';
+import { TestsPageComponent } from './tests-page/tests-page.component';
+import { TestsComponent } from './tests/tests.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { FormPageComponent } from './form-page/form-page.component';
     ContactDetailComponent,
     ContactDetailPageComponent,
     FormPageComponent,
+    TestsPageComponent,
+    TestsComponent,
   ],
   imports: [
     BrowserModule,

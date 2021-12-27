@@ -1,0 +1,20 @@
+{
+    "/google": {
+        "target": "https://www.lemonde.fr",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/google": ""
+        }
+    },
+    "/foot": {
+        "target": "https://api.football-data.org",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/foot": ""
+        }
+    }
+}

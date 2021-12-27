@@ -8,6 +8,7 @@ import { AboutPageComponent } from './about-page/about.page.component';
 import { ContactDetailPageComponent } from './contact-detail-page/contact-detail-page.component';
 import { FormPageComponent } from './form-page/form-page.component';
 import { IsAuthorisedService } from './is-authorised.service';
+import { TestsPageComponent } from './tests-page/tests-page.component';
 
 const routes: Routes = [
     { path: '', component: ContactPageComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: 'observables', component: ObsPageComponent },
     { path: 'obs', component: ObsPageComponent },
     { path: 'passwords', component: PasswordsPageComponent },
+    { path: 'tests', component: TestsPageComponent },
     { path: 'about', component: AboutPageComponent, canActivate: [IsAuthorisedService] }
 ];
 

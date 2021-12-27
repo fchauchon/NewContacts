@@ -9,7 +9,7 @@ export class IsAuthorisedService implements CanActivate {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const auth = false;
+    const auth = true;
     if (! auth) {
       this.router.navigate(['']);
     }
