@@ -38,6 +38,7 @@ import { TestsPageComponent } from './tests-page/tests-page.component';
 import { TestsComponent } from './tests/tests.component';
 import { AnimatePageComponent } from './animate-page/animate-page.component';
 import { AnimateComponent } from './animate/animate.component';
+import { NotesComponent } from './notes/notes.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { AnimateComponent } from './animate/animate.component';
     TestsComponent,
     AnimatePageComponent,
     AnimateComponent,
+    NotesComponent
   ],
   imports: [
     BrowserModule,

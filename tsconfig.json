@@ -8,6 +8,8 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true, // Add this line
+    "resolveJsonModule": true, //already there
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",

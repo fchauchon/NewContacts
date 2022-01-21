@@ -238,7 +238,6 @@ export class ObsComponent implements OnInit, OnDestroy {
 
         subject$.subscribe(
             (data) => {
-                console.log('je suis appelé');
                 this.logText += 'subject1: ' + data + '\n'
             }
         );
@@ -249,7 +248,6 @@ export class ObsComponent implements OnInit, OnDestroy {
 
         subject$.subscribe(
             (data) => {
-                console.log('je suis appelé');
                 this.logText += 'subject2: ' + data + '\n'
             }
         );
