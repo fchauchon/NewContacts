@@ -9,6 +9,7 @@ import { ContactDetailPageComponent } from './contact-detail-page/contact-detail
 import { FormPageComponent } from './form-page/form-page.component';
 import { IsAuthorisedService } from './is-authorised.service';
 import { TestsPageComponent } from './tests-page/tests-page.component';
+import { AnimatePageComponent } from './animate-page/animate-page.component';
 
 const routes: Routes = [
     { path: '', component: ContactPageComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'obs', component: ObsPageComponent },
     { path: 'passwords', component: PasswordsPageComponent },
     { path: 'tests', component: TestsPageComponent },
+    { path: 'animate', component: AnimatePageComponent },
     { path: 'about', component: AboutPageComponent, canActivate: [IsAuthorisedService] }
 ];
 

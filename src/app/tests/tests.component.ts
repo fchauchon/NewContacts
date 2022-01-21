@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, range } from 'rxjs';
+import { map, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tests',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestsComponent implements OnInit {
 
-  constructor() { }
+    letters$: Observable<string[]>;
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        this.letters$ = range(65, 26).pipe(
+            map(num => String.fromCharCode(num)),
+            toArray()
+        );
+    }
 
 }

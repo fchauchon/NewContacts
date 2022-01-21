@@ -1,0 +1,10 @@
+<div class="container d-flex flex-column flex-justify-content-center align-items-center" style="padding: 200px">
+    <div class="w-100 d-flex flex-row justify-content-center align-items-center">
+        <button (click)="state = 'normal'" class="btn btn-primary">Normal</button>
+        <button (click)="state = 'wild'" class="btn btn-primary">Wild</button>
+        <button (click)="showMe = ! showMe" class="btn btn-primary">Switch</button>
+    </div>
+    <div class="w-100 d-flex flex-row justify-content-center">
+        <div *ngIf="showMe" [@square]="state" class="square"></div>
+    </div>
+</div>

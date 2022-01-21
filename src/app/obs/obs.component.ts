@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, forkJoin, interval, merge, Observable, of, range, ReplaySubject, Subscription, timer, zip } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, forkJoin, interval, merge, Observable, of, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, reduce, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 
@@ -19,6 +19,9 @@ export class ObsComponent implements OnInit, OnDestroy {
     timer$!: Observable<number>;
     subTimer: Subscription = null;
 
+    names = [ 'Olivier', 'Mathias', 'Thomas', 'Fred' ]
+    user$ = new BehaviorSubject<any>(null);
+
     constructor(
         private communicationService: CommunicationService,
         private http: HttpClient) { }
@@ -29,6 +32,7 @@ export class ObsComponent implements OnInit, OnDestroy {
         );
 
         this.timer$ = interval(1000);
+        timer(0, 1000).subscribe( (val) => this.user$.next({ id: val, name: this.names[ val % 4] }));
     }
 
     clearLog() {
@@ -139,7 +143,7 @@ export class ObsComponent implements OnInit, OnDestroy {
             mergeMap( (data) => this.http.get('http://localhost:3000/series/' + data['serieId'])),
             tap( (data) => {
                 myObj.serie = data;
-                delete myObj.serieId;
+                //delete myObj.serieId;
                 resultats.push(myObj);
                 this.logText += JSON.stringify(myObj) + '\n';
             })
@@ -161,9 +165,33 @@ export class ObsComponent implements OnInit, OnDestroy {
         );    
     }
 
+    subject() {
+        this.clearLog();
+        const subject$ = new Subject<string>();
+
+        subject$.subscribe(
+            (data) => this.logText += 'subject1: ' + data + '\n'
+        );
+
+        subject$.subscribe(
+            (data) => this.logText += 'subject2: ' + data + '\n'
+        );
+
+        subject$.next("First value");
+        subject$.next("Second value");
+
+        subject$.subscribe(
+            (data) => this.logText += 'subject3: ' + data + '\n'
+        );
+
+        subject$.next("Third value");
+
+        subject$.complete();
+    }
+
     behaviorSubject() {
         this.clearLog();
-        const subject$ = new BehaviorSubject("First value");
+        const subject$ = new BehaviorSubject<string>("First value");
 
         subject$.subscribe(
             (data) => this.logText += 'subject1: ' + data + '\n'
@@ -179,12 +207,14 @@ export class ObsComponent implements OnInit, OnDestroy {
             (data) => this.logText += 'subject3: ' + data + '\n'
         );
 
+        subject$.next("Third value");
+
         subject$.complete();
     }
 
     replaySubject() {
         this.clearLog();
-        const subject$ = new ReplaySubject(2);
+        const subject$ = new ReplaySubject<string>(2);
 
         subject$.subscribe(
             (data) => this.logText += 'subject1: ' + data + '\n'
@@ -204,10 +234,13 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     asyncSubject() {
         this.clearLog();
-        const subject$ = new AsyncSubject();
+        const subject$ = new AsyncSubject<string>();
 
         subject$.subscribe(
-            (data) => this.logText += 'subject1: ' + data + '\n'
+            (data) => {
+                console.log('je suis appelé');
+                this.logText += 'subject1: ' + data + '\n'
+            }
         );
         
         subject$.next("First value");
@@ -215,11 +248,14 @@ export class ObsComponent implements OnInit, OnDestroy {
         subject$.next("Third value");
 
         subject$.subscribe(
-            (data) => this.logText += 'subject2: ' + data + '\n'
+            (data) => {
+                console.log('je suis appelé');
+                this.logText += 'subject2: ' + data + '\n'
+            }
         );
 
         subject$.next("Fourth value");
-        subject$.complete();
+        setTimeout( () => subject$.complete(), 2000);
     }
 
     takeUntil() {

@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './services/interceptor.service';
@@ -35,6 +36,8 @@ import { ContactDetailPageComponent } from './contact-detail-page/contact-detail
 import { FormPageComponent } from './form-page/form-page.component';
 import { TestsPageComponent } from './tests-page/tests-page.component';
 import { TestsComponent } from './tests/tests.component';
+import { AnimatePageComponent } from './animate-page/animate-page.component';
+import { AnimateComponent } from './animate/animate.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,8 @@ import { TestsComponent } from './tests/tests.component';
     FormPageComponent,
     TestsPageComponent,
     TestsComponent,
+    AnimatePageComponent,
+    AnimateComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,8 @@ import { TestsComponent } from './tests/tests.component';
     MatButtonModule,
     MatInputModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }

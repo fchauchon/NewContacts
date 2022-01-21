@@ -1,12 +1,12 @@
 <div class="component bg">
     <h3>Créer une nouvelle personne</h3>
-    <form [formGroup]="customerForm" (ngSubmit)="submitForm()">
+    <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
         <div class="row">
             <div class="col-2">
                 Etat du formulaire:
             </div>
             <div class="col-2">
-                {{ customerForm.status }}
+                {{ contactForm.status }}
             </div>
             <div class="col-8">
             </div>
@@ -19,7 +19,7 @@
                 </mat-form-field>
             </div>
             <div class="col-2">
-                <ng-container *ngIf="customerForm.get('id').errors?.required">
+                <ng-container *ngIf="contactForm.get('id').errors?.required">
                     L'id est obligatoire
                 </ng-container>
             </div>
@@ -34,13 +34,13 @@
                 </mat-form-field>
             </div>
             <div class="col-2">
-                <ng-container *ngIf="customerForm.get('firstName').errors?.required">
+                <ng-container *ngIf="contactForm.get('firstName').errors?.required">
                     Le nom est obligatoire
                 </ng-container>
-                <ng-container *ngIf="customerForm.get('id').errors?.pattern">
+                <ng-container *ngIf="contactForm.get('id').errors?.pattern">
                     L'id doit être un nombre
                 </ng-container>
-                <ng-container *ngIf="customerForm.get('firstName').errors?.minlength">
+                <ng-container *ngIf="contactForm.get('firstName').errors?.minlength">
                     Le nom doit avoir 8 caractères !!!!!!!!!
                 </ng-container>
             </div>
@@ -55,7 +55,7 @@
                 </mat-form-field>
             </div>
             <div class="col-2">
-                <ng-container *ngIf="customerForm.get('lastName').errors?.required">
+                <ng-container *ngIf="contactForm.get('lastName').errors?.required">
                     Le prénom est obligatoire
                 </ng-container>
             </div>
@@ -70,16 +70,16 @@
                 </mat-form-field>
             </div>
             <div class="col-2">
-                <div *ngIf="customerForm.get('email').errors?.required">
+                <div *ngIf="contactForm.get('email').errors?.required">
                     Le mail est obligatoire
                 </div>
-                <div *ngIf="customerForm.get('email').dirty && customerForm.get('email').errors?.email">
+                <div *ngIf="contactForm.get('email').dirty && contactForm.get('email').errors?.email">
                     Le mail est incorrect
                 </div>
             </div>
             <div class="col-8">
             </div>
         </div>
-        <button mat-raised-button color="primary" [disabled]="!customerForm.valid">Créer</button>
+        <button mat-raised-button color="primary" [disabled]="!contactForm.valid">Créer</button>
     </form>
 </div>

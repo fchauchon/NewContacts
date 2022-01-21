@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, mergeMap } from 'rxjs/operators';
+import { debounceTime, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -24,7 +24,10 @@ export class SearchComponent implements OnInit {
 
         this.searchControl.valueChanges.pipe(
             debounceTime(1000),
-            mergeMap( data => this.dataService.searchContacts(data))
+            tap( () => this.propositions =  ['No result'] ),
+            map( (data: string) => data.trim() ),
+            filter( (data: string) => data.length > 2 ),
+            switchMap( data => this.dataService.searchContacts(data) )
         ).subscribe(
             (data: Array<string>) => {
                 this.propositions = ['No result'];
