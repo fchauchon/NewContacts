@@ -2,3 +2,7 @@
 <ng-container *ngFor="let letter of letters$ | async; let index = index">
     {{ letter }}({{ index+1 }})
 </ng-container>
+<h3>
+    {{ count }}
+</h3>
+<button (click)="stop()">Stop</button>
