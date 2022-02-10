@@ -23,10 +23,10 @@ export class SearchComponent implements OnInit {
         });
 
         this.searchControl.valueChanges.pipe(
+            map( (data: string) => data.trim() ),
+            filter( (data: string) => data.length >= 2 ),
             debounceTime(1000),
             tap( () => this.propositions =  ['No result'] ),
-            map( (data: string) => data.trim() ),
-            filter( (data: string) => data.length > 2 ),
             switchMap( data => this.dataService.searchContacts(data) )
         ).subscribe(
             (data: Array<string>) => {

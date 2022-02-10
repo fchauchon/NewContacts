@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, forkJoin, interval, merge, Observable, of, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, reduce, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { AsyncSubject, BehaviorSubject, forkJoin, fromEvent, interval, merge, Observable, of, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
+import { delay, distinctUntilChanged, filter, map, mergeMap, reduce, share, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 
 @Component({
@@ -75,7 +75,8 @@ export class ObsComponent implements OnInit, OnDestroy {
         const otherSimple$ = timer(0, 5000).pipe(
             map( data => 'Toutes les 5 secondes: ' + data )
         );
-        const theEnd$ = interval(15000);
+        //const theEnd$ = interval(15000);
+        const theEnd$ = fromEvent(window, 'dblclick');
 
         merge(simple$, otherSimple$).pipe(
             takeUntil(theEnd$)
@@ -107,7 +108,9 @@ export class ObsComponent implements OnInit, OnDestroy {
     }
 
     forkJoin(): void {
-        const actor$ = this.http.get<Array<any>>('http://localhost:3000/actors/');
+        const actor$ = this.http.get<Array<any>>('http://localhost:3000/actors/').pipe(
+            delay(2000)
+        );
         const series$ = this.http.get<Array<any>>('http://localhost:3000/series');
 
         // Récupère la dernière valeur de chacun des deux observables
@@ -115,7 +118,7 @@ export class ObsComponent implements OnInit, OnDestroy {
             map( ([actors, series]) => 
                 actors.map( (actor) => {
 
-                    actor.serie = series.find( (item) => actor.serieId === item.id );
+                    actor.serie = series.find( (item) => actor.serieId === item.id ).title;
                     delete actor.serieId;
                     return actor;
                 })
@@ -152,6 +155,9 @@ export class ObsComponent implements OnInit, OnDestroy {
             () => { },
             () => console.log(resultats)
         );
+
+        const tab = [10, 2, 3];
+        console.log(tab.reduce( (acc, el) => acc > el ? acc : el, -1 ));
     }
 
     switchMap() {
@@ -273,16 +279,38 @@ export class ObsComponent implements OnInit, OnDestroy {
         const myObs$ = range(1, 20);
 
         myObs$.pipe(
-            reduce((prev, curr) => prev + curr)
+            reduce((acc, curr) => acc + curr)
         ).subscribe(
             data => this.logText += data + "\n"
         );
     }
 
+    share() {
+        this.clearLog();
+        const source = interval(5000).pipe(
+            map((x: number) => {
+                console.log('Processing: ', x);
+                return x*x;
+            }),
+            share()
+        );
+
+        source.subscribe(x => console.log('subscription 1: ', x));
+        source.subscribe(x => console.log('subscription 2: ', x));
+    }
+
+    take() {
+        range(0, 20).pipe(
+            take(10)
+        ).subscribe(
+            data => this.logText += data + "\n"
+        )
+    }
+
     ngOnDestroy(): void {
         if (this.subTimer != null) {
-           this.subTimer.unsubscribe();
-           this.subTimer = null;
+           //this.subTimer.unsubscribe();
+           //this.subTimer = null;
         }
     }
 

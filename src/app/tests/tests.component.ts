@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { interval, Observable, range, Subject } from 'rxjs';
-import { map, take, takeUntil, toArray } from 'rxjs/operators';
+import { every, map, take, takeUntil, tap, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tests',
@@ -11,8 +11,9 @@ export class TestsComponent implements OnInit {
 
     letters$: Observable<string[]>;
 
-    count: number = 30;
+    count: number = 15;
     stopIt: Subject<number> = new Subject<number>();
+    text: string = 'vide';
 
     constructor() { }
 
@@ -23,12 +24,14 @@ export class TestsComponent implements OnInit {
         );
 
         interval(1000).pipe(
-            take(30),
-            takeUntil(this.stopIt)
+            take(this.count),
+            takeUntil(this.stopIt),
         ).subscribe(
             () => this.count--,
             () => {},
-            () => console.log('Terminé')
+            () => {
+                this.count === 0 ? this.text = 'Terminé' : this.text = 'Interrompu';
+            }
         )
     }
 
