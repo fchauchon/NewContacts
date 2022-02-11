@@ -1,11 +1,11 @@
 {
-    "/google": {
-        "target": "https://www.lemonde.fr",
+    "/placeholder": {
+        "target": "https://jsonplaceholder.typicode.com/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true,
         "pathRewrite": {
-            "^/google": ""
+            "^/placeholder": ""
         }
     },
     "/api/": {

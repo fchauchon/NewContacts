@@ -25,4 +25,7 @@
     <div *ngIf="user$ | async; let user">
         Un user : {{ user.id }} - {{ user.name }}
     </div>
+    <div *ngIf="autre$ | async; let user">
+        Un user autre : {{ user.id }} - {{ user.name }}
+    </div>
 </div>

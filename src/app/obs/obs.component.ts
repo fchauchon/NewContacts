@@ -17,6 +17,7 @@ export class ObsComponent implements OnInit, OnDestroy {
     isClassBg1: boolean = true;
 
     timer$!: Observable<number>;
+    autre$!: Observable<any>;
     subTimer: Subscription = null;
 
     names = [ 'Olivier', 'Mathias', 'Thomas', 'Fred' ]
@@ -33,6 +34,10 @@ export class ObsComponent implements OnInit, OnDestroy {
 
         this.timer$ = interval(1000);
         timer(0, 1000).subscribe( (val) => this.user$.next({ id: val, name: this.names[ val % 4] }));
+
+        this.autre$ = timer(0, 1000).pipe(
+            map((val) => { return { id: val, name: this.names[ val % 4] }; })
+        )
     }
 
     clearLog() {
@@ -309,8 +314,8 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         if (this.subTimer != null) {
-           //this.subTimer.unsubscribe();
-           //this.subTimer = null;
+           this.subTimer.unsubscribe();
+           this.subTimer = null;
         }
     }
 

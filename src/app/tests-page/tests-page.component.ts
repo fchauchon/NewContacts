@@ -11,15 +11,6 @@ export class TestsPageComponent implements OnInit {
 
     constructor(private httpClient: HttpClient) { }
 
-    ngOnInit(): void {
-        // this.httpClient.get('/google', { observe: 'response', responseType: 'text' }).subscribe(
-        //     (data) => console.log(data.status),
-        //     (data) => console.log('fred', data)
-        // );
-
-        // this.httpClient.get('/api/v2/matches').subscribe(
-        //     (data) => console.log(data)
-        // );
-    }
+    ngOnInit(): void { }
 
 }

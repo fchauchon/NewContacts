@@ -1,6 +1,7 @@
 <div class="component bg">
     <h3 class="animate__animated animate__rotateIn">Liste des personnes</h3>
-    <mat-spinner diameter="50" [hidden]="isHidden" ></mat-spinner>
+    <mat-spinner *ngIf="false" diameter="50" [hidden]="isHidden" ></mat-spinner>
+    <app-spinner [hidden]="isHidden" ></app-spinner>
     <ul>
         <ng-container *ngIf="persons && persons.length > 0">
             <div *ngFor="let person of persons; trackBy: personById">
