@@ -40,6 +40,7 @@ import { AnimatePageComponent } from './animate-page/animate-page.component';
 import { AnimateComponent } from './animate/animate.component';
 import { NotesComponent } from './notes/notes.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     SpinnerComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -82,7 +83,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     MatInputModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }

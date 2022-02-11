@@ -20,6 +20,7 @@
     "@angular/material": "^13.0.2",
     "@angular/platform-browser": "~12.2.13",
     "@angular/platform-browser-dynamic": "~12.2.13",
+    "@angular/platform-server": "~12.2.13",
     "@angular/router": "~12.2.13",
     "file-saver": "^2.0.5",
     "rxjs": "~6.6.0",
