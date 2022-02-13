@@ -175,19 +175,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "app-shell": {
-          "builder": "@angular-devkit/build-angular:app-shell",
-          "options": {
-            "route": "shell"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "NewContacts:build:production",
-              "serverTarget": "NewContacts:server:production"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       }
     }},

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommunicationService } from '../services/communication.service';
 
 @Component({
   selector: 'app-page-two-ways',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TwoWaysPageComponent implements OnInit {
 
-  constructor() { }
+    constructor(private communicationService: CommunicationService) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
+    public get sharedNumber(): number {
+         return this.communicationService.sharedNumber;
+    }
+
+    public set sharedNumber(value: number) {
+        this.communicationService.sharedNumber = value;
+    }
+
+    doIt(value: number) {
+        this.communicationService.sharedNumber -= value;
+    }
 }

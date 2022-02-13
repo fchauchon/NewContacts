@@ -12,6 +12,8 @@ export class CommunicationService {
     protected notificationQueue = new Subject<Message>();
     protected refreshQueue = new BehaviorSubject<boolean>(true);
 
+    private _sharedNumber: number = 200
+
     constructor() { }
   
     pushMessage(message: string) {
@@ -32,5 +34,13 @@ export class CommunicationService {
 
     onNotification(): Observable<Message> {
         return this.notificationQueue.asObservable();
+    }
+
+    public get sharedNumber(): number {
+        return this._sharedNumber;
+    }
+
+    public set sharedNumber(value: number) {
+        this._sharedNumber = value;
     }
 }

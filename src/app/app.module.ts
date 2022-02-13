@@ -28,8 +28,9 @@ import { ObsPageComponent } from './obs-page/obs-page.component';
 import { PasswordsComponent } from './passwords/passwords.component';
 import { PasswordsPageComponent } from './passwords-page/passwords-page.component';
 import { ProducerComponent } from './producer/producer.component';
-import { TwoWaysComponent } from './two-ways/two-ways.component';
 import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
+import { TwoWaysComponent } from './two-ways-page/two-ways/two-ways.component';
+import { ConsumeComponent } from './two-ways-page/consume/consume.component';
 import { SearchComponent } from './search/search.component';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import { ContactDetailPageComponent } from './contact-detail-page/contact-detail-page.component';
@@ -69,7 +70,8 @@ import { RouterModule } from '@angular/router';
     AnimatePageComponent,
     AnimateComponent,
     NotesComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ConsumeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
