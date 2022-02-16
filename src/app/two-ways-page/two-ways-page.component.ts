@@ -22,6 +22,6 @@ export class TwoWaysPageComponent implements OnInit {
     }
 
     doIt(value: number) {
-        this.communicationService.sharedNumber -= value;
+        this.communicationService.sharedNumber += value;
     }
 }

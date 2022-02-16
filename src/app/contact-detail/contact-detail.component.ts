@@ -12,30 +12,30 @@ import { DataService } from '../services/data.service';
 })
 export class ContactDetailComponent implements OnInit {
 
-  person: Person = null;
+    person: Person = null;
   
-  constructor(
-    private dataService: DataService,
-    private commuicationService: CommunicationService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    constructor(
+        private dataService: DataService,
+        private commuicationService: CommunicationService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.activatedRoute.paramMap.pipe(
-      map( (data: ParamMap) => data.get('id') ),
-      switchMap( (id: string) => this.dataService.getContact(parseInt(id, 10)) )
-    ).subscribe(
-      (person: Person) => this.person = person
-    )
-  }
+    ngOnInit(): void {
+        this.activatedRoute.paramMap.pipe(
+            map( (data: ParamMap) => data.get('id') ),
+            switchMap( (id: string) => this.dataService.getContact(parseInt(id, 10)) )
+        ).subscribe(
+            (person: Person) => this.person = person
+        )
+    }
 
-  delete(): void {
-      this.dataService.deleteContact(this.person.id).subscribe(
-        () => {
-          this.commuicationService.pushConfirmation('Element effacé !');
-          this.router.navigate(['']);
-        }
-      );
-  }
+    delete(): void {
+        this.dataService.deleteContact(this.person.id).subscribe(
+            () => {
+                this.commuicationService.pushConfirmation('Element effacé !');
+                this.router.navigate(['']);
+            }
+        );
+    }
 
 }

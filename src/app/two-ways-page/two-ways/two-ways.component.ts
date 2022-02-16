@@ -9,7 +9,6 @@ import { CommunicationService } from '../../services/communication.service';
 export class TwoWaysComponent implements OnInit {
     @Input() theNumber: number;
     
-
     myValue = "Valeur initiale";
 
     constructor(private communicationService: CommunicationService) { }
