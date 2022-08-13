@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, delay, map, switchMap, tap } from 'rxjs/operators';
 import { Person } from '../classes/person';
 import { environment } from '../../environments/environment'
-import { iif, Observable, of } from 'rxjs';
+import { BehaviorSubject, iif, Observable, of } from 'rxjs';
 import { CommunicationService } from './communication.service';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class DataService {
 
     baseUrl: string = environment.baseUrl;
     cache: Array<Person> = null;
+    public contacts$: BehaviorSubject<Person[]> = new BehaviorSubject([]);
 
     constructor(
         private http: HttpClient,
