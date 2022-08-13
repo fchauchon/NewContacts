@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { debounceTime, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, filter, map, switchMap, tap } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 
 @Component({
