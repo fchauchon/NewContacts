@@ -177,6 +177,6 @@
           "defaultConfiguration": "production"
         }
       }
-    }},
-  "defaultProject": "NewContacts"
+    }
+  }
 }

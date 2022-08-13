@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { combineLatest, merge, Subscription, timer } from 'rxjs';
 
 @Component({
@@ -9,9 +9,9 @@ import { combineLatest, merge, Subscription, timer } from 'rxjs';
 })
 export class PasswordsComponent implements OnInit, OnDestroy {
 
-    form!: FormGroup;
-    password: FormControl = new FormControl('');
-    reEnterPassword: FormControl = new FormControl('');
+    form!: UntypedFormGroup;
+    password: UntypedFormControl = new UntypedFormControl('');
+    reEnterPassword: UntypedFormControl = new UntypedFormControl('');
 
     value = 0;
     isHidden: boolean = true;
@@ -20,7 +20,7 @@ export class PasswordsComponent implements OnInit, OnDestroy {
     constructor() { }
 
     ngOnInit(): void {
-        this.form = new FormGroup({
+        this.form = new UntypedFormGroup({
             'password': this.password,
             'reEnterPassword': this.reEnterPassword,
         });

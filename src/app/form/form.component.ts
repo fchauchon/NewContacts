@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
 import { Person } from '../classes/person';
@@ -13,7 +13,7 @@ import { DataService } from '../services/data.service';
 })
 export class FormComponent implements OnInit, OnDestroy {
 
-    contactForm: FormGroup;
+    contactForm: UntypedFormGroup;
 
     constructor(
         private dataService: DataService,
@@ -23,11 +23,11 @@ export class FormComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        this.contactForm = new FormGroup({
-            id: new FormControl('', [Validators.required, Validators.pattern(/^(0|[1-9]\d*)?$/)]),
-            firstName: new FormControl('', [Validators.required, Validators.minLength(8)]),
-            lastName: new FormControl('', [Validators.required]),
-            email: new FormControl('', [Validators.required, Validators.email])
+        this.contactForm = new UntypedFormGroup({
+            id: new UntypedFormControl('', [Validators.required, Validators.pattern(/^(0|[1-9]\d*)?$/)]),
+            firstName: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
+            lastName: new UntypedFormControl('', [Validators.required]),
+            email: new UntypedFormControl('', [Validators.required, Validators.email])
         });
 
         const firstNameFormControl = this.contactForm.get('firstName');
