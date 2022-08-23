@@ -10,9 +10,9 @@ import { DataService } from '../services/data.service';
 })
 export class SearchComponent implements OnInit {
 
-    propositions: Array<string> = new Array<string>();
-    searchForm: UntypedFormGroup;
-    searchControl: UntypedFormControl;
+    protected propositions: Array<string> = new Array<string>();
+    protected searchForm: UntypedFormGroup;
+    protected searchControl: UntypedFormControl;
 
     constructor(private dataService: DataService) { }
 

@@ -42,6 +42,9 @@ import { AnimateComponent } from './animate/animate.component';
 import { NotesComponent } from './notes/notes.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { RouterModule } from '@angular/router';
+import { StarsPageComponent } from './stars-page/stars-page.component';
+import { StarsComponent } from './stars/stars.component';
+import { StarsProducerComponent } from './stars-producer/stars-producer.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,10 @@ import { RouterModule } from '@angular/router';
     AnimateComponent,
     NotesComponent,
     SpinnerComponent,
-    ConsumeComponent
+    ConsumeComponent,
+    StarsPageComponent,
+    StarsComponent,
+    StarsProducerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../classes/person';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Message } from '../classes/message';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class CommunicationService {
 
     protected messageQueue = new Subject<string>();
     protected notificationQueue = new Subject<Message>();
-    protected refreshQueue = new BehaviorSubject<boolean>(true);
+    protected starQueue = new Subject<string>();
 
     private _sharedNumber: number = 200
 
@@ -42,5 +42,13 @@ export class CommunicationService {
 
     public set sharedNumber(value: number) {
         this._sharedNumber = value;
+    }
+
+    pushStar(start: string) {
+        this.starQueue.next(start);
+    }
+
+    onStar(): Observable<string> {
+        return this.starQueue.asObservable();
     }
 }

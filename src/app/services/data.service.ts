@@ -13,7 +13,6 @@ export class DataService {
 
     baseUrl: string = environment.baseUrl;
     cache: Array<Person> = null;
-    public contacts$: BehaviorSubject<Person[]> = new BehaviorSubject([]);
 
     constructor(
         private http: HttpClient,

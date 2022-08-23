@@ -1,3 +1,4 @@
+import { StarsPageComponent } from './stars-page/stars-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContactPageComponent } from './contact-page/contact.page.component';
@@ -13,8 +14,8 @@ import { AnimatePageComponent } from './animate-page/animate-page.component';
 import { NotesComponent } from './notes/notes.component';
 
 const routes: Routes = [
-    { path: '', component: ContactPageComponent },
-    { path: 'contacts', redirectTo: '' },
+    { path: '', redirectTo: "contacts", pathMatch: 'full' },
+    { path: 'contacts', component: ContactPageComponent },
     { path: 'contacts/add', component: FormPageComponent },
     { path: 'contacts/:id', component: ContactDetailPageComponent },
     { path: 'twoWays', component: TwoWaysPageComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
     { path: 'tests', component: TestsPageComponent },
     { path: 'animate', component: AnimatePageComponent },
     { path: 'about', component: AboutPageComponent, canActivate: [IsAuthorisedService] },
+    { path: 'stars', component: StarsPageComponent },
     { path: 'notes', component: NotesComponent }
 ];
 
