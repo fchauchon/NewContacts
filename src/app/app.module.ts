@@ -42,9 +42,9 @@ import { AnimateComponent } from './animate/animate.component';
 import { NotesComponent } from './notes/notes.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { RouterModule } from '@angular/router';
-import { StarsPageComponent } from './stars-page/stars-page.component';
-import { StarsComponent } from './stars/stars.component';
-import { StarsProducerComponent } from './stars-producer/stars-producer.component';
+import { PointPageComponent } from './point-page/point-page.component';
+import { PointComponent } from './point/point.component';
+import { PointProducerComponent } from './point-producer/Point-producer.component';
 
 @NgModule({
   declarations: [
@@ -75,9 +75,9 @@ import { StarsProducerComponent } from './stars-producer/stars-producer.componen
     NotesComponent,
     SpinnerComponent,
     ConsumeComponent,
-    StarsPageComponent,
-    StarsComponent,
-    StarsProducerComponent
+    PointPageComponent,
+    PointComponent,
+    PointProducerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -4,11 +4,11 @@ import { Subject, timer, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-stars-producer',
-  templateUrl: './stars-producer.component.html',
-  styleUrls: ['./stars-producer.component.css']
+  selector: 'app-point-producer',
+  templateUrl: './point-producer.component.html',
+  styleUrls: ['./point-producer.component.css']
 })
-export class StarsProducerComponent implements OnInit, OnDestroy {
+export class PointProducerComponent implements OnInit, OnDestroy {
 
     protected isLaunched: boolean = false;
     protected stop$: Subject<string>;
@@ -46,14 +46,14 @@ export class StarsProducerComponent implements OnInit, OnDestroy {
                                 color = 'white';
                                 break;
                         }
-                        this.communicationService.pushStar(color + ' ' + x + ' ' + y);
+                        this.communicationService.pushPoint(color + ' ' + x + ' ' + y);
                     }
                 }
             );
     }
 
     protected delete() {
-        this.communicationService.pushStar('');
+        this.communicationService.pushPoint('');
     }
 
     protected stop() {

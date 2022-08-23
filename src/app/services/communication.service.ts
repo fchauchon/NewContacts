@@ -44,11 +44,11 @@ export class CommunicationService {
         this._sharedNumber = value;
     }
 
-    pushStar(start: string) {
+    pushPoint(start: string) {
         this.starQueue.next(start);
     }
 
-    onStar(): Observable<string> {
+    onPoint(): Observable<string> {
         return this.starQueue.asObservable();
     }
 }

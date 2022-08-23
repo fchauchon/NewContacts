@@ -1,4 +1,3 @@
-import { StarsPageComponent } from './stars-page/stars-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContactPageComponent } from './contact-page/contact.page.component';
@@ -12,6 +11,7 @@ import { IsAuthorisedService } from './is-authorised.service';
 import { TestsPageComponent } from './tests-page/tests-page.component';
 import { AnimatePageComponent } from './animate-page/animate-page.component';
 import { NotesComponent } from './notes/notes.component';
+import { PointPageComponent } from './point-page/point-page.component';
 
 const routes: Routes = [
     { path: '', redirectTo: "contacts", pathMatch: 'full' },
@@ -25,7 +25,7 @@ const routes: Routes = [
     { path: 'tests', component: TestsPageComponent },
     { path: 'animate', component: AnimatePageComponent },
     { path: 'about', component: AboutPageComponent, canActivate: [IsAuthorisedService] },
-    { path: 'stars', component: StarsPageComponent },
+    { path: 'point', component: PointPageComponent },
     { path: 'notes', component: NotesComponent }
 ];
 
