@@ -1,9 +1,9 @@
 <div class="bgGeneral">
-    <h3>Rechercher une personne</h3>
+    <h3>Rechercher une personne par son nom de famille</h3>
     <form [formGroup]="searchForm">
         <mat-form-field>
-            <mat-label>Entrer le texte à rechercher:</mat-label>
-            <input matInput formControlName="search">
+            <mat-label>Entrez 2 caractères !</mat-label>
+            <input matInput formControlName="search" size="50">
         </mat-form-field>
     </form>
     <ng-container *ngFor="let prop of propositions">

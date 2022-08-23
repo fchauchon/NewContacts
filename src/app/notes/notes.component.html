@@ -1,0 +1,19 @@
+<div class="bg">
+    <table>
+    <tr>
+        <td>Nom</td>
+        <td>Prenom</td>
+        <td>Ancienne</td>
+        <td>Nouvelle</td>
+        <td>Diff</td>
+    </tr>
+    <tr *ngFor="let item of notes">
+        <td>{{ item.nom }}</td>
+        <td>{{ item.prenom }}</td>
+        <td>{{ item.noteAvant }}</td>
+        <td>{{ item.noteApres }}</td>
+        <td>{{ item.diff }}</td>
+    </tr>
+    </table>
+    <button (click)="down()">Download csv</button>
+</div>

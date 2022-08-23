@@ -8,7 +8,7 @@ import { CommunicationService } from '../services/communication.service';
 })
 export class ProducerComponent implements OnInit {
 
-    inputValue = '';
+    inputValue: string = '';
 
     constructor(private communicationService: CommunicationService) { }
 

@@ -15,25 +15,20 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     isHidden: boolean;
 
-    constructor(
-        private dataService: DataService,
-        private communicationService: CommunicationService) { }
+    constructor(private dataService: DataService) { }
 
     ngOnInit(): void {
-        this.communicationService.onRefresh().subscribe(
-            () => {
-                this.persons = null;
-                this.isHidden = false;
-                this.subscription = this.dataService.getContacts().subscribe(
-
-                    (data: Array<Person>) =>
-                    {
-                        this.isHidden = true;
-                        this.persons = data;
-                    }
-                );
+        this.subscription = this.dataService.getContacts().subscribe(
+            (data: Array<Person>) =>
+            {
+                this.isHidden = true;
+                this.persons = data;
             }
         );
+    }
+    
+    personById(index, person: Person) {
+        return person.id;
     }
 
     ngOnDestroy(): void {

@@ -1,0 +1,13 @@
+<div class="component bg">
+    <h3>Exemple de two-ways data-binding</h3>
+    <mat-form-field>
+        <mat-label>Entrer de la donnée:</mat-label>
+        <input matInput [(ngModel)]="myValue" size="40">
+    </mat-form-field>
+    <br/>
+    <br/>
+    La valeur entrée est : <b>{{ myValue }}</b><br/>
+    <hr>
+    Budget global : {{ theNumber }}€<br/>
+    <button class="btn btn-success" (click)="add()">Ajouter 100€</button>
+</div>

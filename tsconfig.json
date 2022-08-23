@@ -8,9 +8,11 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true, // Add this line
+    "resolveJsonModule": true, //already there
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2020",
     "module": "es2020",
     "lib": [
       "es2018",

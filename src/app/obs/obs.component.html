@@ -6,16 +6,26 @@
     <button mat-flat-button color="accent" (click)="toggleBgColor()">Changer bgColor</button><br/>
     <button mat-flat-button color="accent" (click)="simple()">Simple</button>
     <button mat-flat-button color="accent" (click)="map()">Map</button>
+    <button mat-flat-button color="accent" (click)="merge()">Merge</button>
     <button mat-flat-button color="accent" (click)="mapAndFilter()">Map & filter</button>
     <button mat-flat-button color="accent" (click)="distinct()">Distinct</button>
-    <button mat-flat-button color="accent" (click)="forkJoin()">forkJoin</button><br/>
+    <button mat-flat-button color="accent" (click)="forkJoin()">ForkJoin</button>
     <button mat-flat-button color="accent" (click)="mergeMap()">MergeMap</button>
-    <button mat-flat-button color="accent" (click)="switchMap()">SwitchMap</button>
+    <button mat-flat-button color="accent" (click)="switchMap()">SwitchMap</button><br/>
+    <button mat-flat-button color="accent" (click)="subject()">Subject</button>
     <button mat-flat-button color="accent" (click)="behaviorSubject()">BehaviorSubject</button>
     <button mat-flat-button color="accent" (click)="replaySubject()">ReplaySubject</button>
     <button mat-flat-button color="accent" (click)="asyncSubject()">AsyncSubject</button><br/>
+    <button mat-flat-button color="accent" (click)="take()">Take</button>
     <button mat-flat-button color="accent" (click)="takeUntil()">TakeUntil</button>
     <button mat-flat-button color="accent" (click)="reduce()">Reduce</button><br/>
+    <button mat-flat-button color="accent" (click)="share()">Share</button>
     <br/>
-    Temps écoulé depuis l'affichage de la page : {{ timer$ | async }} secondes
+    Temps écoulé depuis l'affichage de la page : {{ timer$ | async }} secondes<br/>
+    <div *ngIf="user$ | async; let user">
+        Un user : {{ user.id }} - {{ user.name }}
+    </div>
+    <div *ngIf="autre$ | async; let user">
+        Un user autre : {{ user.id }} - {{ user.name }}
+    </div>
 </div>

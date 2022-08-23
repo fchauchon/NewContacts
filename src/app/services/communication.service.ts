@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../classes/person';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { Message } from '../classes/message';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,10 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class CommunicationService {
 
     protected messageQueue = new Subject<string>();
-    protected errorQueue = new Subject<string>();
-    protected refreshQueue = new BehaviorSubject<boolean>(true);
+    protected notificationQueue = new Subject<Message>();
+    protected starQueue = new Subject<string>();
+
+    private _sharedNumber: number = 200
 
     constructor() { }
   
@@ -21,20 +24,31 @@ export class CommunicationService {
         return this.messageQueue.asObservable();
     }
 
-    pushError(error: string) {
-        this.errorQueue.next(error);
+    pushError(errorMessage: string) {
+        this.notificationQueue.next(new Message('ERROR', errorMessage));
     }
 
-    onError(): Observable<string> {
-        return this.errorQueue.asObservable();
+    pushConfirmation(confirmationMessage: string) {
+        this.notificationQueue.next(new Message('NOTIFICATION', confirmationMessage));
     }
 
-    pushRefresh(refresh: boolean) {
-        this.refreshQueue.next(refresh);
+    onNotification(): Observable<Message> {
+        return this.notificationQueue.asObservable();
     }
 
-    onRefresh(): Observable<boolean> {
-        return this.refreshQueue.asObservable();
+    public get sharedNumber(): number {
+        return this._sharedNumber;
     }
 
+    public set sharedNumber(value: number) {
+        this._sharedNumber = value;
+    }
+
+    pushStar(start: string) {
+        this.starQueue.next(start);
+    }
+
+    onStar(): Observable<string> {
+        return this.starQueue.asObservable();
+    }
 }

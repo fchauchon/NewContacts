@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './services/interceptor.service';
@@ -27,9 +28,23 @@ import { ObsPageComponent } from './obs-page/obs-page.component';
 import { PasswordsComponent } from './passwords/passwords.component';
 import { PasswordsPageComponent } from './passwords-page/passwords-page.component';
 import { ProducerComponent } from './producer/producer.component';
-import { TwoWaysComponent } from './two-ways/two-ways.component';
 import { TwoWaysPageComponent } from './two-ways-page/two-ways-page.component';
+import { TwoWaysComponent } from './two-ways-page/two-ways/two-ways.component';
+import { ConsumeComponent } from './two-ways-page/consume/consume.component';
 import { SearchComponent } from './search/search.component';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
+import { ContactDetailPageComponent } from './contact-detail-page/contact-detail-page.component';
+import { FormPageComponent } from './form-page/form-page.component';
+import { TestsPageComponent } from './tests-page/tests-page.component';
+import { TestsComponent } from './tests/tests.component';
+import { AnimatePageComponent } from './animate-page/animate-page.component';
+import { AnimateComponent } from './animate/animate.component';
+import { NotesComponent } from './notes/notes.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { RouterModule } from '@angular/router';
+import { StarsPageComponent } from './stars-page/stars-page.component';
+import { StarsComponent } from './stars/stars.component';
+import { StarsProducerComponent } from './stars-producer/stars-producer.component';
 
 @NgModule({
   declarations: [
@@ -50,9 +65,22 @@ import { SearchComponent } from './search/search.component';
     PasswordsPageComponent,
     ProducerComponent,
     SearchComponent,
+    ContactDetailComponent,
+    ContactDetailPageComponent,
+    FormPageComponent,
+    TestsPageComponent,
+    TestsComponent,
+    AnimatePageComponent,
+    AnimateComponent,
+    NotesComponent,
+    SpinnerComponent,
+    ConsumeComponent,
+    StarsPageComponent,
+    StarsComponent,
+    StarsProducerComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -62,7 +90,9 @@ import { SearchComponent } from './search/search.component';
     MatButtonModule,
     MatInputModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    RouterModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }

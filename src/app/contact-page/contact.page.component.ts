@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { iif, interval, of, timer } from 'rxjs';
+import { AboutComponent } from '../about/about.component';
 
 @Component({
   selector: 'app-contact-page',
@@ -7,8 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
+  open() {
+    const dialogRef = this.dialog.open(AboutComponent);
+  }
 }
