@@ -60,7 +60,7 @@ export class DataService {
         )
     }
 
-    getContact(id: number): Observable<Person> {
+    getContact(id: string): Observable<Person> {
         return this.http.get<Person>(this.baseUrl + 'actors/' + id).pipe(
             catchError( () => {
                 this.communicationService.pushError('Le json-server est absent !')
@@ -69,7 +69,7 @@ export class DataService {
         )
     }
 
-    getContactFull(id: number): Observable<Person> {
+    getContactFull(id: string): Observable<Person> {
         let myActor = null;
 
         return this.http.get<Person>(this.baseUrl + 'actors/' + id).pipe(
@@ -102,7 +102,7 @@ export class DataService {
         );
     }
 
-    deleteContact(id: number): Observable<any> {
+    deleteContact(id: string): Observable<any> {
         return this.http.delete(this.baseUrl + 'actors/' + id).pipe(
             catchError( () => {
                 this.communicationService.pushError('Le json-server est absent !')

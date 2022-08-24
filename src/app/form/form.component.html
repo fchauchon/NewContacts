@@ -14,21 +14,6 @@
         <div class="row">
             <div class="col-2">
                 <mat-form-field>
-                    <mat-label>Id:</mat-label>
-                    <input matInput formControlName="id" />
-                </mat-form-field>
-            </div>
-            <div class="col-2">
-                <ng-container *ngIf="contactForm.get('id').errors?.required">
-                    L'id est obligatoire
-                </ng-container>
-            </div>
-            <div class="col-8">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <mat-form-field>
                     <mat-label>FirstName:</mat-label>
                     <input matInput formControlName="firstName" />
                 </mat-form-field>
@@ -36,9 +21,6 @@
             <div class="col-2">
                 <ng-container *ngIf="contactForm.get('firstName').errors?.required">
                     Le nom est obligatoire
-                </ng-container>
-                <ng-container *ngIf="contactForm.get('id').errors?.pattern">
-                    L'id doit être un nombre
                 </ng-container>
                 <ng-container *ngIf="contactForm.get('firstName').errors?.minlength">
                     Le nom doit avoir 8 caractères !!!!!!!!!

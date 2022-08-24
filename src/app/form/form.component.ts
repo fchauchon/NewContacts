@@ -5,6 +5,7 @@ import { combineLatest, Subscription } from 'rxjs';
 import { Person } from '../classes/person';
 import { CommunicationService } from '../services/communication.service';
 import { DataService } from '../services/data.service';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-form',
@@ -22,9 +23,7 @@ export class FormComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-
         this.contactForm = new UntypedFormGroup({
-            id: new UntypedFormControl('', [Validators.required, Validators.pattern(/^(0|[1-9]\d*)?$/)]),
             firstName: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
             lastName: new UntypedFormControl('', [Validators.required]),
             email: new UntypedFormControl('', [Validators.required, Validators.email])
@@ -43,7 +42,7 @@ export class FormComponent implements OnInit, OnDestroy {
     submitForm(): void {
 
         const person = new Person(
-            this.contactForm.get('id').value,
+            uuid(),
             this.contactForm.get('firstName').value,
             this.contactForm.get('lastName').value,
             this.contactForm.get('email').value,

@@ -23,7 +23,7 @@ export class ContactDetailComponent implements OnInit {
     ngOnInit(): void {
         this.activatedRoute.paramMap.pipe(
             map( (data: ParamMap) => data.get('id') ),
-            switchMap( (id: string) => this.dataService.getContact(parseInt(id, 10)) )
+            switchMap( (id: string) => this.dataService.getContact(id) )
         ).subscribe(
             (person: Person) => this.person = person
         )
