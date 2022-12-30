@@ -11,7 +11,7 @@ import { DataService } from '../services/data.service';
 export class ContactComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
 
     @Input() person!: Person;
-    @Output() deleteRequest= new EventEmitter<number>();
+    @Output() deleteRequest = new EventEmitter<number>();
     styles= {};
 
     constructor(

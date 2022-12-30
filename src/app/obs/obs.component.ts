@@ -13,7 +13,7 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     logText: string = '';
     isLogHidden: boolean = false;
-    
+
     isClassBg1: boolean = true;
 
     timer$!: Observable<number>;
@@ -120,7 +120,7 @@ export class ObsComponent implements OnInit, OnDestroy {
 
         // Récupère la dernière valeur de chacun des deux observables
         forkJoin([actor$, series$]).pipe(
-            map( ([actors, series]) => 
+            map( ([actors, series]) =>
                 actors.map( (actor) => {
 
                     actor.serie = series.find( (item) => actor.serieId === item.id ).title;
@@ -140,25 +140,41 @@ export class ObsComponent implements OnInit, OnDestroy {
             of(1, 2, 3, 4, 5),
             timer(0, 3000)
         );
-        let myObj = null;
-        let resultats = [];
-        
+        // let myObj = null;
+        // let resultats = [];
+
+        // someIds$.pipe(
+        //     mergeMap( ([id, time]) => this.http.get('http://localhost:3000/actors/' + id) ),
+        //     tap( (data) => {
+        //         myObj = data;
+        //     }),
+        //     mergeMap( (data) => this.http.get('http://localhost:3000/series/' + data['serieId'])),
+        //     tap( (data) => {
+        //         myObj.serie = data;
+        //         //delete myObj.serieId;
+        //         resultats.push(myObj);
+        //         this.logText += JSON.stringify(myObj) + '\n';
+        //     })
+        // ).subscribe(
+        //     () => { },
+        //     () => { },
+        //     () => console.log(resultats)
+        // );
+
+        //someIds$.pipe(
         someIds$.pipe(
-            mergeMap( ([id, time]) => this.http.get('http://localhost:3000/actors/' + id) ),
-            tap( (data) => {
-                myObj = data;
-            }),
-            mergeMap( (data) => this.http.get('http://localhost:3000/series/' + data['serieId'])),
-            tap( (data) => {
-                myObj.serie = data;
-                //delete myObj.serieId;
-                resultats.push(myObj);
-                this.logText += JSON.stringify(myObj) + '\n';
-            })
+            mergeMap( ([id, time]) => this.http.get('http://localhost:3000/actors/' + id).pipe(
+                mergeMap( (actor: any) => this.http.get('http://localhost:3000/series/' + actor['serieId']).pipe(
+                    map( (serie: any) => {
+                        actor.serie = serie;
+                        return actor
+                    })
+                ))
+            ))
         ).subscribe(
-            () => { },
-            () => { },
-            () => console.log(resultats)
+            myObj => {
+                this.logText += JSON.stringify(myObj) + '\n';
+            }
         );
 
         const tab = [10, 2, 3];
@@ -173,7 +189,7 @@ export class ObsComponent implements OnInit, OnDestroy {
             switchMap( (data) => this.http.get('http://localhost:3000/actors/' + data) )
         ).subscribe(
             (data) => this.logText += 'switchMap: ' + JSON.stringify(data) + '\n'
-        );    
+        );
     }
 
     subject() {
@@ -230,7 +246,7 @@ export class ObsComponent implements OnInit, OnDestroy {
         subject$.subscribe(
             (data) => this.logText += 'subject1: ' + data + '\n'
         );
-        
+
         subject$.next("First value");
         subject$.next("Second value");
         subject$.next("Third value");
@@ -239,7 +255,7 @@ export class ObsComponent implements OnInit, OnDestroy {
             (data) => this.logText += 'subject2: ' + data + '\n'
         );
 
-        subject$.next("Fourth value");  
+        subject$.next("Fourth value");
         subject$.complete();
     }
 
@@ -252,7 +268,7 @@ export class ObsComponent implements OnInit, OnDestroy {
                 this.logText += 'subject1: ' + data + '\n'
             }
         );
-        
+
         subject$.next("First value");
         subject$.next("Second value");
         subject$.next("Third value");

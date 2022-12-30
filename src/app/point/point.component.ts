@@ -1,6 +1,5 @@
 import { CommunicationService } from 'src/app/services/communication.service';
-import { Component, Inject, Input, AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, Input, AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-point',
@@ -13,12 +12,10 @@ export class PointComponent implements OnInit, AfterViewInit {
     @Input() theBgColor: string;
 
     protected myStyle: any;
-    protected myCanvas: HTMLCanvasElement;
 
-    @ViewChild('myPoint', {static: false}) canvas: ElementRef;
+    @ViewChild('myPoint', {static: true}) canvas: ElementRef;
 
     constructor(
-        @Inject(DOCUMENT) private document: Document,
         private communicationService: CommunicationService
     ) { }
 
@@ -29,10 +26,9 @@ export class PointComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.myCanvas = this.document.getElementById(this.theId) as HTMLCanvasElement;
+        console.log(this.canvas)
         this.communicationService.onPoint().subscribe(
             (val) => {
-                //const ctx = this.myCanvas.getContext('2d');
                 const ctx = this.canvas.nativeElement.getContext('2d');
                 const infos = val.split(' ');
                 if (infos.length === 1) {
