@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, forkJoin, fromEvent, interval, merge, Observable, of, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
-import { delay, distinctUntilChanged, filter, map, mergeMap, reduce, share, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { AsyncSubject, BehaviorSubject, forkJoin, from, fromEvent, interval, merge, Observable, of, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
+import { delay, distinctUntilChanged, filter, map, mergeMap, reduce, share, switchMap, take, takeUntil } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 
 @Component({
@@ -326,6 +326,34 @@ export class ObsComponent implements OnInit, OnDestroy {
         ).subscribe(
             data => this.logText += data + "\n"
         )
+    }
+
+    complique() {
+      // Le premier Observable nous renvoie un tableau en un seul morceau.
+      // Le but est de faire deux appels par élément du premier tableau
+      // Et de stocker la traduction du code de la ville départ et destination
+      // Le premier mergeMap éclate le tableau de flight en une séquence de x next() pour chacune des lignes du tableau
+      // Le second mergeMap prend la première ligne est la transforme pour récupérer le label correspondant au code
+      // Le troisème mergeMap fait la même chose que second sur la destination
+      this.http.get('http://localhost:3000/flights').pipe(
+        mergeMap( (flights: any[]) => from(flights)),
+        mergeMap( (flight: any) => this.http.get('http://localhost:3000/cities?code=' + flight.to).pipe(
+            map( (cities: any[]) => {
+              delete flight.to
+              flight.to = cities[0].label
+              return flight
+            })
+        )),
+        mergeMap( (flight: any) => this.http.get('http://localhost:3000/cities?code=' + flight.from).pipe(
+            map( (cities: any[]) => {
+              delete flight.from
+              flight.from = cities[0].label
+              return flight
+            })
+        ))
+      ).subscribe(
+        d => console.log(d)
+      )
     }
 
     ngOnDestroy(): void {

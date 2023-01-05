@@ -19,7 +19,8 @@
     <button mat-flat-button color="accent" (click)="take()">Take</button>
     <button mat-flat-button color="accent" (click)="takeUntil()">TakeUntil</button>
     <button mat-flat-button color="accent" (click)="reduce()">Reduce</button><br/>
-    <button mat-flat-button color="accent" (click)="share()">Share</button>
+    <button mat-flat-button color="accent" (click)="share()">Share</button><br/>
+    <button mat-flat-button color="accent" (click)="complique()">Compliqué</button>
     <br/>
     Temps écoulé depuis l'affichage de la page : {{ timer$ | async }} secondes<br/>
     <div *ngIf="user$ | async; let user">

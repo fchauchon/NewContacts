@@ -62,5 +62,21 @@
             "id": 5,
             "title": "24h chrono"
         }
+    ],
+    "flights": [
+      {
+        "from": "AMS",
+        "to": "NCE"
+      },
+      {
+        "from": "MRS",
+        "to": "CDG"
+      }
+    ],
+    "cities": [
+      { "code": "AMS", "label": "Amsterdam"},
+      { "code": "NCE", "label": "Nice"},
+      { "code": "MRS", "label": "Marseille"},
+      { "code": "CDG", "label": "Paris Charles de Gaule"}
     ]
 }
