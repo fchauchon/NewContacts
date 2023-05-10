@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, forkJoin, from, fromEvent, interval, merge, Observable, of, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, forkJoin, from, fromEvent, iif, interval, merge, Observable, of, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
 import { delay, distinctUntilChanged, filter, map, mergeMap, reduce, share, switchMap, take, takeUntil } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
 
@@ -22,6 +22,8 @@ export class ObsComponent implements OnInit, OnDestroy {
 
     names = [ 'Olivier', 'Mathias', 'Thomas', 'Fred' ]
     user$ = new BehaviorSubject<any>(null);
+
+    cache = new Map<string, any>()
 
     constructor(
         private communicationService: CommunicationService,
@@ -339,18 +341,56 @@ export class ObsComponent implements OnInit, OnDestroy {
         mergeMap( (flights: any[]) => from(flights)),
         mergeMap( (flight: any) => this.http.get('http://localhost:3000/cities?code=' + flight.to).pipe(
             map( (cities: any[]) => {
-              delete flight.to
               flight.to = cities[0].label
               return flight
             })
         )),
         mergeMap( (flight: any) => this.http.get('http://localhost:3000/cities?code=' + flight.from).pipe(
             map( (cities: any[]) => {
-              delete flight.from
               flight.from = cities[0].label
               return flight
             })
         ))
+      ).subscribe(
+        d => console.log(d)
+      )
+    }
+
+    compliqueWithCache() {
+      this.http.get('http://localhost:3000/flights').pipe(
+        mergeMap( (flights: any[]) => from(flights)),
+        mergeMap( (flight: any) => {
+          const fromCache = this.cache.get(flight.to)
+          if (fromCache) {
+              console.log('In cache to')
+              flight.to = fromCache
+              return of(flight)
+          } else {
+              return this.http.get('http://localhost:3000/cities?code=' + flight.to).pipe(
+                  map( (cities: any[]) => {
+                      this.cache.set(flight.to, cities[0].label)
+                      flight.to = cities[0].label
+                      return flight
+                  })
+              )
+          }
+        }),
+        mergeMap( (flight: any) => {
+          const fromCache = this.cache.get(flight.from)
+          if (fromCache) {
+              console.log('In cache from')
+              flight.from = fromCache
+              return of(flight)
+          } else {
+              return this.http.get('http://localhost:3000/cities?code=' + flight.from).pipe(
+                  map( (cities: any[]) => {
+                      this.cache.set(flight.from, cities[0].label)
+                      flight.from = cities[0].label
+                      return flight
+                  })
+              )
+          }
+        })
       ).subscribe(
         d => console.log(d)
       )
