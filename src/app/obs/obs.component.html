@@ -22,6 +22,8 @@
     <button mat-flat-button color="accent" (click)="share()">Share</button><br/>
     <button mat-flat-button color="accent" (click)="complique()">Compliqué</button>
     <button mat-flat-button color="accent" (click)="compliqueWithCache()">Compliqué avec cache</button>
+    <button mat-flat-button color="accent" (click)="concatMap()">ConcatMap</button>
+    <button mat-flat-button color="accent" (click)="exhaustMap()">ExhaustMap</button>
     <br/>
     Temps écoulé depuis l'affichage de la page : {{ timer$ | async }} secondes<br/>
     <div *ngIf="user$ | async; let user">

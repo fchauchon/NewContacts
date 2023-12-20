@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, forkJoin, from, fromEvent, iif, interval, merge, Observable, of, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
-import { delay, distinctUntilChanged, filter, map, mergeMap, reduce, share, switchMap, take, takeUntil } from 'rxjs/operators';
+import { AsyncSubject, BehaviorSubject, combineLatest, forkJoin, from, fromEvent, iif, interval, merge, Observable, of, race, range, ReplaySubject, Subject, Subscription, timer, zip } from 'rxjs';
+import { concatMap, delay, distinctUntilChanged, exhaustMap, filter, map, mergeMap, reduce, share, startWith, switchMap, take, takeUntil, tap, toArray } from 'rxjs/operators';
 import { CommunicationService } from '../services/communication.service';
+import { Flight } from '../flight';
+import { City } from '../city';
 
 @Component({
   selector: 'app-obs',
@@ -163,7 +165,6 @@ export class ObsComponent implements OnInit, OnDestroy {
         //     () => console.log(resultats)
         // );
 
-        //someIds$.pipe(
         someIds$.pipe(
             mergeMap( ([id, time]) => this.http.get('http://localhost:3000/actors/' + id).pipe(
                 mergeMap( (actor: any) => this.http.get('http://localhost:3000/series/' + actor['serieId']).pipe(
@@ -336,7 +337,7 @@ export class ObsComponent implements OnInit, OnDestroy {
       // Et de stocker la traduction du code de la ville départ et destination
       // Le premier mergeMap éclate le tableau de flight en une séquence de x next() pour chacune des lignes du tableau
       // Le second mergeMap prend la première ligne est la transforme pour récupérer le label correspondant au code
-      // Le troisème mergeMap fait la même chose que second sur la destination
+      // Le troisième mergeMap fait la même chose que second sur la destination
       this.http.get('http://localhost:3000/flights').pipe(
         mergeMap( (flights: any[]) => from(flights)),
         mergeMap( (flight: any) => this.http.get('http://localhost:3000/cities?code=' + flight.to).pipe(
@@ -394,6 +395,127 @@ export class ObsComponent implements OnInit, OnDestroy {
       ).subscribe(
         d => console.log(d)
       )
+    }
+
+    // concatMap() {
+    //   from(['https://jsonplaceholder.typicode.com/users/1', 'https://jsonplaceholder.typicode.com/users/2']).pipe(
+    //     tap(()=>console.log("hello")),
+    //     concatMap((url: string) => this.http.get(url)),
+    //     map(
+    //       (objPrinc: any) => {
+    //           return objPrinc.name;
+    //       }
+    //     ),
+    //     toArray()
+    //   ).subscribe(
+    //     d => console.log(d)
+    //   );
+    // }
+
+    // Le GET nous renvoie un tableau de x vols [{from: code, to: code}, {from: code, to: code}]
+    // Le premier concatMap prend le résultat de la requête précédence et avec le tableau récupéré
+    // Renvoie un observable qui émet x fois les vols
+    // Le second concatMap appelle l'url /cities?code=XXX x fois
+    //      On applique un map pour mettre dans le paramètre flight.from la valeur récupérée dans l'appel à cities
+    // On fait la même chose pour le to
+    // le toArray() permet de récupérer un tableau de résultat
+    concatMap() {
+        this.http.get('http://localhost:3000/flights').pipe(
+            concatMap( (flights: Flight[]) => from(flights) ),
+            concatMap( (flight: Flight) => this.http.get('http://localhost:3000/cities?code=' + flight.from).pipe(
+                map( (cities: City[]) => ( { from: cities[0].label, to: flight.to } ) )
+            )),
+            concatMap( (flight: Flight) => this.http.get('http://localhost:3000/cities?code=' + flight.to).pipe(
+                map( (cities: City[]) => ( { from: flight.from, to: cities[0].label } ) )
+            )),
+            toArray()
+        ).subscribe(
+            (flights: Flight[]) => console.log(flights)
+        );
+    }
+
+    race() {
+
+      const obs5$ = new Observable( (observer) =>
+      {
+        observer.next('Valeur 1');
+        observer.next('Valeur 2');
+        setTimeout( () => {
+          observer.next('Valeur 3');
+          observer.complete();
+        }, 1000);
+
+      });
+      const obs6$ = new Observable( (observer) =>
+      {
+        observer.next('Valeur 11');
+        observer.next('Valeur 22');
+        setTimeout( () => {
+          observer.next('Valeur 33');
+          observer.complete();
+        }, 2000);
+
+      });
+      const obs7$ = new Observable( (observer) =>
+      {
+        observer.next('Valeur 111');
+        observer.next('Valeur 222');
+        setTimeout( () => {
+          observer.next('Valeur 333');
+          observer.complete();
+        }, 50);
+
+      });
+
+      race(obs5$, obs6$, obs7$).subscribe(
+        d => console.log(d)
+      );
+    }
+
+    startWith() {
+
+      of('Valeur 1', 'Valeur 2').pipe(
+         startWith('Valeur insérée')
+      ).subscribe(
+        d => console.log(d)
+      );
+    }
+
+    combineLastest() {
+
+      const obs8$ = new Observable( (observer) =>
+      {
+        let i = 0;
+        setInterval(() => observer.next('OBS1 ' + (++i)), 1000);
+      });
+      const obs9$ = new Observable( (observer) =>
+      {
+        let i = 0;
+        setInterval(() => observer.next('OBS2 ' + (++i)), 3000);
+      });
+      const obs10$ = new Observable( (observer) =>
+      {
+        let i = 0;
+        setInterval(() => observer.next('OBS3 ' + (++i)), 5000);
+      });
+
+      combineLatest([obs8$, obs9$, obs10$]).subscribe(
+        d => console.log(d)
+      );
+    }
+
+    exhaustMap() {
+        of('https://jsonplaceholder.typicode.com/users/1', 'https://jsonplaceholder.typicode.com/users/2', 'https://jsonplaceholder.typicode.com/users/3', 'https://jsonplaceholder.typicode.com/users/4').pipe(
+            exhaustMap((url: string) => this.http.get(url)),
+            map(
+                (objPrinc: any) => {
+                    return objPrinc.name;
+                }
+            ),
+            toArray()
+        ).subscribe(
+            d => console.log(d)
+        );
     }
 
     ngOnDestroy(): void {
